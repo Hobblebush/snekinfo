@@ -1,0 +1,13 @@
+<h1>Show Litter</h1>
+
+<ul>
+
+  <li>
+    <strong>Born:</strong>
+    <%= @litter.born %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.litter_path(@conn, :edit, @litter) %></span> |
+<span><%= link "Back", to: Routes.litter_path(@conn, :index) %></span>

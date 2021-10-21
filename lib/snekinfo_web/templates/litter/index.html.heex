@@ -1,0 +1,26 @@
+<h1>Listing Litters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Born</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for litter <- @litters do %>
+    <tr>
+      <td><%= litter.born %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.litter_path(@conn, :show, litter) %></span>
+        <span><%= link "Edit", to: Routes.litter_path(@conn, :edit, litter) %></span>
+        <span><%= link "Delete", to: Routes.litter_path(@conn, :delete, litter), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Litter", to: Routes.litter_path(@conn, :new) %></span>

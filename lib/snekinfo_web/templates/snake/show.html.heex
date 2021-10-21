@@ -1,0 +1,23 @@
+<h1>Show Snake</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @snake.name %>
+  </li>
+
+  <li>
+    <strong>Sex:</strong>
+    <%= @snake.sex %>
+  </li>
+
+  <li>
+    <strong>Born:</strong>
+    <%= @snake.born %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.snake_path(@conn, :edit, @snake) %></span> |
+<span><%= link "Back", to: Routes.snake_path(@conn, :index) %></span>
