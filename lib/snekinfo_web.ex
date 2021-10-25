@@ -90,6 +90,8 @@ defmodule SnekinfoWeb do
       import SnekinfoWeb.ErrorHelpers
       import SnekinfoWeb.Gettext
       alias SnekinfoWeb.Router.Helpers, as: Routes
+
+      import SnekinfoWeb.DateHelpers
     end
   end
 
