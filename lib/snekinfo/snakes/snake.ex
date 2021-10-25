@@ -6,6 +6,7 @@ defmodule Snekinfo.Snakes.Snake do
     field :born, :date
     field :name, :string
     field :sex, :string
+    field :litter_id, :id
 
     timestamps()
   end
