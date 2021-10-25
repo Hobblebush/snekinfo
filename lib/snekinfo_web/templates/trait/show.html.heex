@@ -1,0 +1,18 @@
+<h1>Show Trait</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @trait.name %>
+  </li>
+
+  <li>
+    <strong>Inheritance:</strong>
+    <%= @trait.inheritance %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.trait_path(@conn, :edit, @trait) %></span> |
+<span><%= link "Back", to: Routes.trait_path(@conn, :index) %></span>

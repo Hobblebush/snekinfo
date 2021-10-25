@@ -1,0 +1,18 @@
+<h1>Show Weight</h1>
+
+<ul>
+
+  <li>
+    <strong>Weight:</strong>
+    <%= @weight.weight %>
+  </li>
+
+  <li>
+    <strong>Timestamp:</strong>
+    <%= @weight.timestamp %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.weight_path(@conn, :edit, @weight) %></span> |
+<span><%= link "Back", to: Routes.weight_path(@conn, :index) %></span>

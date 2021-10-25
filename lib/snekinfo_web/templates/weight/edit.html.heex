@@ -1,0 +1,5 @@
+<h1>Edit Weight</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.weight_path(@conn, :update, @weight)) %>
+
+<span><%= link "Back", to: Routes.weight_path(@conn, :index) %></span>

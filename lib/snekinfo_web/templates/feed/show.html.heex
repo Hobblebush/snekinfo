@@ -1,0 +1,28 @@
+<h1>Show Feed</h1>
+
+<ul>
+
+  <li>
+    <strong>Live?:</strong>
+    <%= @feed.live? %>
+  </li>
+
+  <li>
+    <strong>Weight:</strong>
+    <%= @feed.weight %>
+  </li>
+
+  <li>
+    <strong>Ingested?:</strong>
+    <%= @feed.ingested? %>
+  </li>
+
+  <li>
+    <strong>Timestamp:</strong>
+    <%= @feed.timestamp %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.feed_path(@conn, :edit, @feed) %></span> |
+<span><%= link "Back", to: Routes.feed_path(@conn, :index) %></span>

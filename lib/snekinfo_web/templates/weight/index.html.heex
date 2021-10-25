@@ -1,0 +1,28 @@
+<h1>Listing Weights</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Weight</th>
+      <th>Timestamp</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for weight <- @weights do %>
+    <tr>
+      <td><%= weight.weight %></td>
+      <td><%= weight.timestamp %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.weight_path(@conn, :show, weight) %></span>
+        <span><%= link "Edit", to: Routes.weight_path(@conn, :edit, weight) %></span>
+        <span><%= link "Delete", to: Routes.weight_path(@conn, :delete, weight), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Weight", to: Routes.weight_path(@conn, :new) %></span>

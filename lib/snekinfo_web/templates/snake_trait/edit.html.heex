@@ -1,0 +1,5 @@
+<h1>Edit Snake trait</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.snake_trait_path(@conn, :update, @snake_trait)) %>
+
+<span><%= link "Back", to: Routes.snake_trait_path(@conn, :index) %></span>

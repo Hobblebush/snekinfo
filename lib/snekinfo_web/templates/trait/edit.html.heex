@@ -1,0 +1,5 @@
+<h1>Edit Trait</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.trait_path(@conn, :update, @trait)) %>
+
+<span><%= link "Back", to: Routes.trait_path(@conn, :index) %></span>
