@@ -15,7 +15,7 @@ defmodule Snekinfo.Feeds.Feed do
   @doc false
   def changeset(feed, attrs) do
     feed
-    |> cast(attrs, [:live?, :weight, :ingested?, :timestamp])
-    |> validate_required([:live?, :weight, :ingested?, :timestamp])
+    |> cast(attrs, [:snake_id, :live?, :weight, :ingested?, :timestamp])
+    |> validate_required([:snake_id, :live?, :weight, :ingested?, :timestamp])
   end
 end

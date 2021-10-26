@@ -5,23 +5,35 @@
     </div>
   <% end %>
 
-  <%= label f, :live? %>
-  <%= checkbox f, :live? %>
-  <%= error_tag f, :live? %>
+  <div>
+    <%= label f, :snake_id %>
+    <%= number_input f, :snake_id, step: "any", class: "form-control" %>
+    <%= error_tag f, :snake_id %>
+  </div>
 
-  <%= label f, :weight %>
-  <%= number_input f, :weight, step: "any" %>
-  <%= error_tag f, :weight %>
+  <div class="form-check">
+    <%= label f, :live?, class: "form-check-label" %>
+    <%= checkbox f, :live?, class: "form-check-input"%>
+    <%= error_tag f, :live? %>
+  </div>
 
-  <%= label f, :ingested? %>
-  <%= checkbox f, :ingested? %>
-  <%= error_tag f, :ingested? %>
+  <div>
+    <%= label f, :weight %>
+    <%= number_input f, :weight, step: "any", class: "form-control" %>
+    <%= error_tag f, :weight %>
+  </div>
+
+  <div class="form-check">
+    <%= label f, :ingested?, class: "form-check-label"%>
+    <%= checkbox f, :ingested?, class: "form-check-input" %>
+    <%= error_tag f, :ingested? %>
+  </div>
 
   <%= label f, :timestamp %>
   <%= datetime_select f, :timestamp %>
   <%= error_tag f, :timestamp %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "btn btn-primary"%>
   </div>
 </.form>
