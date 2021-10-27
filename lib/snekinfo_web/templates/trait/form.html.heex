@@ -5,15 +5,19 @@
     </div>
   <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
+  <div class="mb-3">
+    <%= label f, :name %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
 
-  <%= label f, :inheritance %>
-  <%= text_input f, :inheritance %>
-  <%= error_tag f, :inheritance %>
+  <div class="mb-3">
+    <%= label f, :inheritance %>
+    <%= text_input f, :inheritance, class: "form-control"%>
+    <%= error_tag f, :inheritance %>
+  </div>
 
-  <div>
-    <%= submit "Save" %>
+  <div class="mb-3">
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 </.form>

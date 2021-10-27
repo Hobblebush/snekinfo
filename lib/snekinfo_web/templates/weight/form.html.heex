@@ -5,15 +5,19 @@
     </div>
   <% end %>
 
-  <%= label f, :weight %>
-  <%= number_input f, :weight, step: "any" %>
-  <%= error_tag f, :weight %>
+  <div class="mb-3">
+    <%= label f, :weight %>
+    <%= number_input f, :weight, step: "any", class: "form-control" %>
+    <%= error_tag f, :weight %>
+  </div>
 
-  <%= label f, :timestamp %>
-  <%= datetime_select f, :timestamp %>
-  <%= error_tag f, :timestamp %>
+  <div class="mb-3">
+    <%= label f, :timestamp %>
+   <%= datetime_select f, :timestamp, class: "form-control" %>
+    <%= error_tag f, :timestamp %>
+  </div>
 
-  <div>
-    <%= submit "Save" %>
+  <div class="mb-3">
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 </.form>

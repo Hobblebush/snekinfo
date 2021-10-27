@@ -11,19 +11,19 @@
     <%= error_tag f, :name %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= label f, :sex %>
     <%= text_input f, :sex, class: "form-control" %>
     <%= error_tag f, :sex %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= label f, :born %>
-    <%= date_select f, :born, class: "form-control" %>
+    <%= date_input f, :born, class: "form-control" %>
     <%= error_tag f, :born %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= submit "Save", class: "btn btn-primary" %>
   </div>
 </.form>
