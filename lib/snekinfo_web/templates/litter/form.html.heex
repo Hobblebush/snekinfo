@@ -4,12 +4,13 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
+  <div class="mb-3">
+    <%= label f, :born %>
+    <%= date_input f, :born, class: "form-control" %>
+    <%= error_tag f, :born %>
+  </div>
 
-  <%= label f, :born %>
-  <%= date_input f, :born %>
-  <%= error_tag f, :born %>
-
-  <div>
-    <%= submit "Save" %>
+  <div class="mb-3">
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 </.form>
