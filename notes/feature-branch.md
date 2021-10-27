@@ -82,3 +82,16 @@ $ git push
 Someone presses the "merge" button in the browser, optimally the person who
 approved the code review step.
 
+## Step 9: Pull change to local main branch
+
+```
+$ git checkout main
+$ git pull
+```
+
+If pulling main got the changes, you can delete the local feature branch
+
+```
+$ git branch
+$ git branch -d new-feature
+```
