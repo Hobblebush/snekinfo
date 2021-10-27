@@ -82,3 +82,11 @@ $ git push
 Someone presses the "merge" button in the browser, optimally the person who
 approved the code review step.
 
+## Step 9: Pull the change to local main
+
+```
+$ git checkout main
+$ git pull
+```
+
+
