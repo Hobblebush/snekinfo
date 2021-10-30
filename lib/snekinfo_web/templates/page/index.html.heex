@@ -1,46 +1,36 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-  <p>
-    <a href="https://phoenixframework.org/" class="phx-logo">
-      <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-    </a>
-  </p>
-</section>
+<div class="row">
+  <div class="column">
+    <h1>Snekinfo</h1>
+  </div>
+</div>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
+<div class="row">
+  <div class="col">
+    <h2>Snakes</h2>
     <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">v1.6 Changelog</a>
-      </li>
+      <li><%= link "List Snakes", to: Routes.snake_path(@conn, :index) %></li>
+      <li><%= link "New Snake", to: Routes.snake_path(@conn, :new) %></li>
     </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
+  </div>
+  <div class="col">
+    <h2>Traits</h2>
     <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
+      <li><%= link "List Traits", to: Routes.trait_path(@conn, :index) %></li>
+      <li><%= link "New Traits", to: Routes.trait_path(@conn, :new) %></li>
     </ul>
-  </article>
-</section>
+    <h2>Litters</h2>
+    <ul>
+      <li><%= link "List Litters", to: Routes.litter_path(@conn, :index) %></li>
+      <li><%= link "New Litter", to: Routes.litter_path(@conn, :new) %></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <%= img_tag(
+      Routes.static_path(@conn, "/images/reptigene-small.jpg"),
+      alt: "reptigene logo"
+    ) %>
+  </div>
+</div>
