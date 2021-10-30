@@ -4,9 +4,10 @@ defmodule SnekinfoWeb.FeedController do
   alias Snekinfo.Feeds
   alias Snekinfo.Feeds.Feed
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    snake_id = params["snake_id"]
     feeds = Feeds.list_feeds()
-    render(conn, "index.html", feeds: feeds)
+    render(conn, "index.html", feeds: feeds, snake_id: snake_id)
   end
 
   def new(conn, _params) do

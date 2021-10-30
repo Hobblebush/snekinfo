@@ -91,6 +91,7 @@ defmodule SnekinfoWeb do
       import SnekinfoWeb.Gettext
       alias SnekinfoWeb.Router.Helpers, as: Routes
 
+      import SnekinfoWeb.ViewHelpers
       import SnekinfoWeb.DateHelpers
     end
   end

@@ -3,6 +3,8 @@ defmodule SnekinfoWeb.SnakeController do
 
   alias Snekinfo.Snakes
   alias Snekinfo.Snakes.Snake
+  alias Snekinfo.Feeds
+  alias Snekinfo.Weights
 
   def index(conn, _params) do
     snakes = Snakes.list_snakes()
@@ -28,7 +30,10 @@ defmodule SnekinfoWeb.SnakeController do
 
   def show(conn, %{"id" => id}) do
     snake = Snakes.get_snake!(id)
-    render(conn, "show.html", snake: snake)
+    recent_feeds = Feeds.list_recent_feeds_for_snake(snake, 10)
+    recent_weights = Weights.list_recent_weights_for_snake(snake, 10)
+    render(conn, "show.html", snake: snake,
+      recent_feeds: recent_feeds, recent_weights: recent_weights)
   end
 
   def edit(conn, %{"id" => id}) do

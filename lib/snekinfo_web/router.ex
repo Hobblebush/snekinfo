@@ -18,13 +18,14 @@ defmodule SnekinfoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/snakes", SnakeController
+    resources "/snakes", SnakeController do
+      resources "/feeds", FeedController, only: [:index]
+      resources "/weights", WeightController, only: [:index]
+    end
     resources "/litters", LitterController
     resources "/traits", TraitController
-    resources "/snake_traits", Snake_traitController
     resources "/weights", WeightController
     resources "/feeds", FeedController
-
   end
 
   # Other scopes may use custom stacks.

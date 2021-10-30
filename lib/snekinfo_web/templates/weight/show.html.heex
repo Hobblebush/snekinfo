@@ -1,17 +1,22 @@
 <h1>Show Weight</h1>
 
 <ul>
+  <li>
+    <strong>Snake:</strong>
+    <%= show_snake(@conn, @weight.snake) %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <span class="pretty-date">
+      <%= @weight.date %>
+    </span>
+  </li>
 
   <li>
     <strong>Weight:</strong>
     <%= @weight.weight %>
   </li>
-
-  <li>
-    <strong>Timestamp:</strong>
-    <%= @weight.timestamp %>
-  </li>
-
 </ul>
 
 <span><%= link "Edit", to: Routes.weight_path(@conn, :edit, @weight) %></span> |

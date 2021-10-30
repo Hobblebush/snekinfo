@@ -1,32 +1,9 @@
 <h1>Listing Feeds</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Live?</th>
-      <th>Weight</th>
-      <th>Ingested?</th>
-      <th>Timestamp</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for feed <- @feeds do %>
-    <tr>
-      <td><%= feed.live? %></td>
-      <td><%= feed.weight %></td>
-      <td><%= feed.ingested? %></td>
-      <td><%= feed.timestamp %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.feed_path(@conn, :show, feed) %></span>
-        <span><%= link "Edit", to: Routes.feed_path(@conn, :edit, feed) %></span>
-        <span><%= link "Delete", to: Routes.feed_path(@conn, :delete, feed), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
+<%= if assigns[:snake_id] do %>
+  <%= render "single_table.html", feeds: @feeds %>
+<% else %>
+  <%= render "table.html", feeds: @feeds %>
 <% end %>
-  </tbody>
-</table>
 
 <span><%= link "New Feed", to: Routes.feed_path(@conn, :new) %></span>

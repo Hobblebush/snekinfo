@@ -4,9 +4,10 @@ defmodule SnekinfoWeb.WeightController do
   alias Snekinfo.Weights
   alias Snekinfo.Weights.Weight
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    snake_id = params["snake_id"]
     weights = Weights.list_weights()
-    render(conn, "index.html", weights: weights)
+    render(conn, "index.html", weights: weights, snake_id: snake_id)
   end
 
   def new(conn, _params) do

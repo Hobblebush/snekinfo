@@ -28,7 +28,8 @@ defmodule SnekinfoWeb.TraitController do
 
   def show(conn, %{"id" => id}) do
     trait = Traits.get_trait!(id)
-    render(conn, "show.html", trait: trait)
+    snakes = Traits.get_trait_snakes!(trait)
+    render(conn, "show.html", trait: trait, snakes: snakes)
   end
 
   def edit(conn, %{"id" => id}) do

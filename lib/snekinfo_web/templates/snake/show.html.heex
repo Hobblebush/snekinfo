@@ -1,7 +1,11 @@
 <h1>Show Snake</h1>
 
-<ul>
+<p>
+  <span><%= link "Edit", to: Routes.snake_path(@conn, :edit, @snake) %></span> |
+  <span><%= link "Back", to: Routes.snake_path(@conn, :index) %></span>
+</p>
 
+<ul>
   <li>
     <strong>Name:</strong>
     <%= @snake.name %>
@@ -14,10 +18,31 @@
 
   <li>
     <strong>Born:</strong>
-    <%= @snake.born %>
+    <span class="pretty-date">
+      <%= @snake.born %>
+    </span>
   </li>
 
+  <li>
+    <strong>Litter:</strong>
+    <%= show_litter(@conn, @snake.litter) %>
+  </li>
+
+  <li>
+    <strong>Traits:</strong>
+    <%= show_traits(@conn, @snake.traits) %>
+  </li>
 </ul>
 
-<span><%= link "Edit", to: Routes.snake_path(@conn, :edit, @snake) %></span> |
-<span><%= link "Back", to: Routes.snake_path(@conn, :index) %></span>
+<div class="row">
+  <div class="col">
+    <h2>Feeds</h2>
+    <%= render(SnekinfoWeb.FeedView, "single_table.html",
+               Map.put(assigns, :feeds, @recent_feeds)) %>
+  </div>
+  <div class="col">
+    <h2>Weights</h2>
+    <%= render(SnekinfoWeb.WeightView, "single_table.html",
+               Map.put(assigns, :weights, @recent_weights)) %>
+  </div>
+</div>

@@ -4,6 +4,9 @@
   <thead>
     <tr>
       <th>Born</th>
+      <th>Mother</th>
+      <th>Father</th>
+      <th>Size</th>
 
       <th></th>
     </tr>
@@ -11,7 +14,10 @@
   <tbody>
 <%= for litter <- @litters do %>
     <tr>
-      <td><%= litter.born %></td>
+      <td class="pretty-date"><%= litter.born %></td>
+      <td><%= try_get(litter, [:mother, :name]) || "∅" %></td>
+      <td><%= try_get(litter, [:father, :name]) || "∅" %></td>
+      <td><%= litter.size %></td>
 
       <td>
         <span><%= link "Show", to: Routes.litter_path(@conn, :show, litter) %></span>

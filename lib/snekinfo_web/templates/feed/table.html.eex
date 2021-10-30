@@ -1,0 +1,30 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Snake</th>
+      <th>Date</th>
+      <th>Live?</th>
+      <th>Weight</th>
+      <th>Ingested?</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for feed <- @feeds do %>
+  <tr>
+    <td><%= show_snake(@conn, feed.snake) %></td>
+    <td><%= feed.date %></td>
+    <td><%= feed.live? %></td>
+    <td><%= feed.weight %></td>
+    <td><%= feed.ingested? %></td>
+
+    <td>
+      <span><%= link "Show", to: Routes.feed_path(@conn, :show, feed) %></span>
+      <span><%= link "Edit", to: Routes.feed_path(@conn, :edit, feed) %></span>
+      <span><%= link "Delete", to: Routes.feed_path(@conn, :delete, feed), method: :delete, data: [confirm: "Are you sure?"] %></span>
+    </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>

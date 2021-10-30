@@ -6,7 +6,7 @@ defmodule Snekinfo.Repo.Migrations.CreateFeeds do
       add :live?, :boolean, default: false, null: false
       add :weight, :float
       add :ingested?, :boolean, default: false, null: false
-      add :timestamp, :utc_datetime, null: false
+      add :date, :date, null: false
       add :snake_id, references(:snakes, on_delete: :nothing), null: false
 
       timestamps()
