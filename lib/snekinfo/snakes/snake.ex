@@ -22,9 +22,11 @@ defmodule Snekinfo.Snakes.Snake do
 
   @doc false
   def changeset(snake, attrs) do
+    traits = attrs["traits"] || attrs[:traits] || []
+
     snake
     |> cast(attrs, [:litter_id, :name, :sex, :born])
-    |> put_assoc(:traits, attrs["traits"])
+    |> put_assoc(:traits, traits)
     |> validate_required([:name, :sex, :born])
     |> validate_inclusion(:sex, sexes())
   end

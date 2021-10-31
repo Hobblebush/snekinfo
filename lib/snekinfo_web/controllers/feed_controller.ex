@@ -26,7 +26,8 @@ defmodule SnekinfoWeb.FeedController do
         |> redirect(to: Routes.feed_path(conn, :show, feed))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "new.html", changeset: changeset, snakes: snakes)
     end
   end
 
@@ -52,7 +53,8 @@ defmodule SnekinfoWeb.FeedController do
         |> redirect(to: Routes.feed_path(conn, :show, feed))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", feed: feed, changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "edit.html", feed: feed, changeset: changeset, snakes: snakes)
     end
   end
 

@@ -26,7 +26,8 @@ defmodule SnekinfoWeb.WeightController do
         |> redirect(to: Routes.weight_path(conn, :show, weight))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "new.html", changeset: changeset, snakes: snakes)
     end
   end
 
@@ -53,7 +54,8 @@ defmodule SnekinfoWeb.WeightController do
         |> redirect(to: Routes.weight_path(conn, :show, weight))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", weight: weight, changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "edit.html", weight: weight, changeset: changeset, snakes: snakes)
     end
   end
 

@@ -11,8 +11,8 @@ defmodule Snekinfo.TraitsFixtures do
     {:ok, trait} =
       attrs
       |> Enum.into(%{
-        inheritance: "some inheritance",
-        name: "some name"
+        inheritance: "poly",
+        name: "wings"
       })
       |> Snekinfo.Traits.create_trait()
 

@@ -2,6 +2,7 @@ defmodule Snekinfo.LittersTest do
   use Snekinfo.DataCase
 
   alias Snekinfo.Litters
+  alias Snekinfo.SnakesFixtures
 
   describe "litters" do
     alias Snekinfo.Litters.Litter
@@ -12,16 +13,18 @@ defmodule Snekinfo.LittersTest do
 
     test "list_litters/0 returns all litters" do
       litter = litter_fixture()
-      assert Litters.list_litters() == [litter]
+      assert_near_eq(Litters.list_litters(), [litter])
     end
 
     test "get_litter!/1 returns the litter with given id" do
       litter = litter_fixture()
-      assert Litters.get_litter!(litter.id) == litter
+      assert_near_eq(Litters.get_litter!(litter.id), litter)
     end
 
     test "create_litter/1 with valid data creates a litter" do
-      valid_attrs = %{born: ~D[2021-10-20]}
+      mother = SnakesFixtures.snake_fixture()
+
+      valid_attrs = %{mother_id: mother.id, born: ~D[2021-10-20]}
 
       assert {:ok, %Litter{} = litter} = Litters.create_litter(valid_attrs)
       assert litter.born == ~D[2021-10-20]
@@ -42,7 +45,7 @@ defmodule Snekinfo.LittersTest do
     test "update_litter/2 with invalid data returns error changeset" do
       litter = litter_fixture()
       assert {:error, %Ecto.Changeset{}} = Litters.update_litter(litter, @invalid_attrs)
-      assert litter == Litters.get_litter!(litter.id)
+      assert_near_eq(litter, Litters.get_litter!(litter.id))
     end
 
     test "delete_litter/1 deletes the litter" do

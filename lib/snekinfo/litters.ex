@@ -64,9 +64,17 @@ defmodule Snekinfo.Litters do
 
   """
   def create_litter(attrs \\ %{}) do
-    %Litter{}
+    rv = %Litter{}
     |> Litter.changeset(attrs)
     |> Repo.insert()
+
+    case rv do
+      {:ok, litter} ->
+        litter = %Litter{ litter | size: 0 }
+        {:ok, litter}
+      other ->
+        other
+    end
   end
 
   @doc """

@@ -2,10 +2,11 @@ defmodule SnekinfoWeb.WeightControllerTest do
   use SnekinfoWeb.ConnCase
 
   import Snekinfo.WeightsFixtures
+  alias Snekinfo.SnakesFixtures
 
-  @create_attrs %{timestamp: ~U[2021-10-20 23:42:00Z], weight: 120.5}
-  @update_attrs %{timestamp: ~U[2021-10-21 23:42:00Z], weight: 456.7}
-  @invalid_attrs %{timestamp: nil, weight: nil}
+  @create_attrs %{date: ~D[2021-10-20], weight: 120.5}
+  @update_attrs %{date: ~D[2021-10-21], weight: 456.7}
+  @invalid_attrs %{timestamp: "goat", weight: -7.5}
 
   describe "index" do
     test "lists all weights", %{conn: conn} do
@@ -23,7 +24,10 @@ defmodule SnekinfoWeb.WeightControllerTest do
 
   describe "create weight" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.weight_path(conn, :create), weight: @create_attrs)
+      snake = SnakesFixtures.snake_fixture()
+      weight_attrs = Map.put(@create_attrs, :snake_id, snake.id)
+
+      conn = post(conn, Routes.weight_path(conn, :create), weight: weight_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.weight_path(conn, :show, id)

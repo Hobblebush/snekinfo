@@ -31,7 +31,10 @@ defmodule SnekinfoWeb.SnakeController do
         |> redirect(to: Routes.snake_path(conn, :show, snake))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        litters = [nil | Litters.list_litters()]
+        traits = Traits.list_traits()
+        render(conn, "new.html", changeset: changeset,
+          litters: litters, traits: traits, snake_traits: [])
     end
   end
 
@@ -63,7 +66,10 @@ defmodule SnekinfoWeb.SnakeController do
         |> redirect(to: Routes.snake_path(conn, :show, snake))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", snake: snake, changeset: changeset)
+        litters = [nil | Litters.list_litters()]
+        traits = Traits.list_traits()
+        render(conn, "edit.html", snake: snake, changeset: changeset,
+          litters: litters, traits: traits, snake_traits: snake.traits)
     end
   end
 

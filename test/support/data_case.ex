@@ -48,4 +48,29 @@ defmodule Snekinfo.DataCase do
       end)
     end)
   end
+
+  def assert_near_eq(xs, ys) when is_list(xs) do
+    assert is_list(ys)
+
+    Enum.each Enum.zip(xs, ys), fn {aa, bb} ->
+      assert_near_eq(aa, bb)
+    end
+  end
+  def assert_near_eq(aa, bb) do
+    assert is_map(aa) && is_map(bb)
+
+    aa1 = Map.from_struct(aa)
+    bb1 = Map.from_struct(bb)
+
+    assert Map.keys(aa1) == Map.keys(bb1)
+
+    Enum.each Map.keys(aa1), fn kk ->
+      if !eanl?(aa1[kk]) && !eanl?(bb1[kk]) do
+        assert {kk, aa1[kk]} == {kk, bb1[kk]}
+      end
+    end
+  end
+
+  defp eanl?(%Ecto.Association.NotLoaded{}), do: true
+  defp eanl?(_any), do: false
 end

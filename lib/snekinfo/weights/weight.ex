@@ -17,5 +17,6 @@ defmodule Snekinfo.Weights.Weight do
     weight
     |> cast(attrs, [:snake_id, :weight, :date])
     |> validate_required([:snake_id, :weight, :date])
+    |> validate_number(:weight, greater_than: 0.0)
   end
 end

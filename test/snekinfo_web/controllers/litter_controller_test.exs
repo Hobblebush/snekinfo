@@ -2,10 +2,11 @@ defmodule SnekinfoWeb.LitterControllerTest do
   use SnekinfoWeb.ConnCase
 
   import Snekinfo.LittersFixtures
+  alias Snekinfo.SnakesFixtures
 
   @create_attrs %{born: ~D[2021-10-20]}
   @update_attrs %{born: ~D[2021-10-21]}
-  @invalid_attrs %{born: nil}
+  @invalid_attrs %{born: "goat"}
 
   describe "index" do
     test "lists all litters", %{conn: conn} do
@@ -23,7 +24,10 @@ defmodule SnekinfoWeb.LitterControllerTest do
 
   describe "create litter" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.litter_path(conn, :create), litter: @create_attrs)
+      mother = SnakesFixtures.snake_fixture()
+
+      litter_attrs = Map.put(@create_attrs, :mother_id, mother.id)
+      conn = post(conn, Routes.litter_path(conn, :create), litter: litter_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.litter_path(conn, :show, id)

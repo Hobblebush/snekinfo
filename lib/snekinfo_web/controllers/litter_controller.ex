@@ -24,7 +24,8 @@ defmodule SnekinfoWeb.LitterController do
         |> redirect(to: Routes.litter_path(conn, :show, litter))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "new.html", changeset: changeset, snakes: snakes)
     end
   end
 
@@ -50,7 +51,8 @@ defmodule SnekinfoWeb.LitterController do
         |> redirect(to: Routes.litter_path(conn, :show, litter))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", litter: litter, changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "edit.html", litter: litter, changeset: changeset, snakes: snakes)
     end
   end
 

@@ -19,5 +19,6 @@ defmodule Snekinfo.Feeds.Feed do
     feed
     |> cast(attrs, [:snake_id, :live?, :weight, :ingested?, :date])
     |> validate_required([:snake_id, :live?, :weight, :ingested?, :date])
+    |> validate_number(:weight, greater_than: 0.0)
   end
 end
