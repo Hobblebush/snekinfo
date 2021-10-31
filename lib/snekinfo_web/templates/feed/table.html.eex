@@ -13,7 +13,7 @@
   <tbody>
 <%= for feed <- @feeds do %>
   <tr>
-    <td><%= show_snake(@conn, feed.snake) %></td>
+    <td><%= snake_link(@conn, feed.snake) %></td>
     <td><%= feed.date %></td>
     <td><%= feed.live? %></td>
     <td><%= feed.weight %></td>

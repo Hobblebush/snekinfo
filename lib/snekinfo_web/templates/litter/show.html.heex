@@ -13,12 +13,12 @@
 
   <li>
     <strong>Mother:</strong>
-    <%= show_snake(@conn, @litter.mother) %>
+    <%= snake_link(@conn, @litter.mother) %>
   </li>
 
   <li>
     <strong>Father:</strong>
-    <%= show_snake(@conn, @litter.father) %>
+    <%= snake_link(@conn, @litter.father) %>
   </li>
 
   <li>
@@ -29,8 +29,12 @@
 
 <h2>Snakes in Litter</h2>
 
+<p>
+  <%= link "New Snake", to: Routes.litter_snake_path(@conn, :new, @litter) %>
+</p>
+
 <ul>
   <%= for snake <- @litter.snakes do %>
-    <li><%= show_snake(@conn, snake) %></li>
+    <li><%= snake_link(@conn, snake) %></li>
   <% end %>
 </ul>

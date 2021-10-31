@@ -15,7 +15,7 @@ defmodule Snekinfo.Weights.Weight do
   @doc false
   def changeset(weight, attrs) do
     weight
-    |> cast(attrs, [:weight, :date])
-    |> validate_required([:weight, :date])
+    |> cast(attrs, [:snake_id, :weight, :date])
+    |> validate_required([:snake_id, :weight, :date])
   end
 end

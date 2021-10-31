@@ -3,6 +3,7 @@ defmodule SnekinfoWeb.LitterController do
 
   alias Snekinfo.Litters
   alias Snekinfo.Litters.Litter
+  alias Snekinfo.Snakes
 
   def index(conn, _params) do
     litters = Litters.list_litters()
@@ -10,8 +11,9 @@ defmodule SnekinfoWeb.LitterController do
   end
 
   def new(conn, _params) do
+    snakes = Snakes.list_snakes()
     changeset = Litters.change_litter(%Litter{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, snakes: snakes)
   end
 
   def create(conn, %{"litter" => litter_params}) do
@@ -32,9 +34,10 @@ defmodule SnekinfoWeb.LitterController do
   end
 
   def edit(conn, %{"id" => id}) do
+    snakes = Snakes.list_snakes()
     litter = Litters.get_litter!(id)
     changeset = Litters.change_litter(litter)
-    render(conn, "edit.html", litter: litter, changeset: changeset)
+    render(conn, "edit.html", litter: litter, changeset: changeset, snakes: snakes)
   end
 
   def update(conn, %{"id" => id, "litter" => litter_params}) do

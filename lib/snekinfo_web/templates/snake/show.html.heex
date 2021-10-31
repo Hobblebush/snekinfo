@@ -25,23 +25,31 @@
 
   <li>
     <strong>Litter:</strong>
-    <%= show_litter(@conn, @snake.litter) %>
+    <%= litter_link(@conn, @snake.litter) %>
   </li>
 
   <li>
     <strong>Traits:</strong>
-    <%= show_traits(@conn, @snake.traits) %>
+    <%= trait_links(@conn, @snake.traits) %>
   </li>
 </ul>
 
 <div class="row">
   <div class="col">
     <h2>Feeds</h2>
+    <p>
+      <%= link("New Feed", to: Routes.snake_feed_path(@conn, :new, @snake)) %> |
+      <%= link("All Feeds", to: Routes.snake_feed_path(@conn, :index, @snake)) %>
+    </p>
     <%= render(SnekinfoWeb.FeedView, "single_table.html",
                Map.put(assigns, :feeds, @recent_feeds)) %>
   </div>
   <div class="col">
     <h2>Weights</h2>
+    <p>
+      <%= link("New Weight", to: Routes.snake_weight_path(@conn, :new, @snake)) %> |
+      <%= link("All Weights", to: Routes.snake_weight_path(@conn, :index, @snake)) %>
+    </p>
     <%= render(SnekinfoWeb.WeightView, "single_table.html",
                Map.put(assigns, :weights, @recent_weights)) %>
   </div>

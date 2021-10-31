@@ -22,6 +22,7 @@ defmodule Snekinfo.Litters do
       left_join: sn in assoc(lit, :snakes),
       group_by: lit.id,
       select: {lit, count(sn.id)},
+      order_by: [desc: :born],
       preload: [:mother, :father]
 
     Enum.map xs, fn {lit, size} ->

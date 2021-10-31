@@ -5,18 +5,25 @@ defmodule SnekinfoWeb.SnakeController do
   alias Snekinfo.Snakes.Snake
   alias Snekinfo.Feeds
   alias Snekinfo.Weights
+  alias Snekinfo.Litters
+  alias Snekinfo.Traits
 
   def index(conn, _params) do
     snakes = Snakes.list_snakes()
     render(conn, "index.html", snakes: snakes)
   end
 
-  def new(conn, _params) do
-    changeset = Snakes.change_snake(%Snake{})
-    render(conn, "new.html", changeset: changeset)
+  def new(conn, params) do
+    litters = [nil | Litters.list_litters()]
+    traits = Traits.list_traits()
+    snake0 = %Snake{traits: [], litter_id: params["litter_id"]}
+    changeset = Snakes.change_snake(snake0)
+    render(conn, "new.html", changeset: changeset, litters: litters,
+      traits: traits, snake_traits: [])
   end
 
   def create(conn, %{"snake" => snake_params}) do
+    snake_params = load_traits(snake_params)
     case Snakes.create_snake(snake_params) do
       {:ok, snake} ->
         conn
@@ -37,13 +44,17 @@ defmodule SnekinfoWeb.SnakeController do
   end
 
   def edit(conn, %{"id" => id}) do
+    litters = [nil | Litters.list_litters()]
+    traits = Traits.list_traits()
     snake = Snakes.get_snake!(id)
     changeset = Snakes.change_snake(snake)
-    render(conn, "edit.html", snake: snake, changeset: changeset)
+    render(conn, "edit.html", snake: snake, changeset: changeset,
+      litters: litters, traits: traits, snake_traits: snake.traits)
   end
 
   def update(conn, %{"id" => id, "snake" => snake_params}) do
     snake = Snakes.get_snake!(id)
+    snake_params = load_traits(snake_params)
 
     case Snakes.update_snake(snake, snake_params) do
       {:ok, snake} ->
@@ -63,5 +74,13 @@ defmodule SnekinfoWeb.SnakeController do
     conn
     |> put_flash(:info, "Snake deleted successfully.")
     |> redirect(to: Routes.snake_path(conn, :index))
+  end
+
+  def load_traits(params) do
+    xs = params["traits"] || []
+    ys = Enum.map xs, fn id ->
+      Traits.get_trait!(id)
+    end
+    Map.put(params, "traits", ys)
   end
 end

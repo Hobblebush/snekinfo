@@ -18,8 +18,8 @@
       <td><%= snake.name %></td>
       <td><%= snake.sex %></td>
       <td class="pretty-date"><%= snake.born %></td>
-      <td><%= show_litter(@conn, snake.litter) %></td>
-      <td><%= show_traits(@conn, snake.traits) %></td>
+      <td><%= litter_link(@conn, snake.litter) %></td>
+      <td><%= trait_links(@conn, snake.traits) %></td>
 
       <td>
         <span><%= link "Show", to: Routes.snake_path(@conn, :show, snake) %></span>

@@ -11,7 +11,7 @@
   <tbody>
 <%= for weight <- @weights do %>
     <tr>
-      <td><%= show_snake(@conn, weight.snake) %></td>
+      <td><%= snake_link(@conn, weight.snake) %></td>
       <td class="pretty-date"><%= weight.date %></td>
       <td><%= weight.weight %></td>
 

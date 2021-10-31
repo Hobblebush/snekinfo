@@ -19,10 +19,12 @@ defmodule SnekinfoWeb.Router do
 
     get "/", PageController, :index
     resources "/snakes", SnakeController do
-      resources "/feeds", FeedController, only: [:index]
-      resources "/weights", WeightController, only: [:index]
+      resources "/feeds", FeedController, only: [:index, :new]
+      resources "/weights", WeightController, only: [:index, :new]
     end
-    resources "/litters", LitterController
+    resources "/litters", LitterController do
+      resources "/snakes", SnakeController, only: [:new]
+    end
     resources "/traits", TraitController
     resources "/weights", WeightController
     resources "/feeds", FeedController

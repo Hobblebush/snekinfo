@@ -22,6 +22,15 @@ defmodule Snekinfo.Weights do
     |> Repo.preload(:snake)
   end
 
+  def list_weights(snake_id) do
+    if snake_id do
+      Repo.all from wt in Weight,
+        where: wt.snake_id == ^snake_id
+    else
+      list_weights()
+    end
+  end
+
   def list_recent_weights_for_snake(snake, limit) do
     xs = Repo.all from wt in Weight,
       where: wt.snake_id == ^snake.id,

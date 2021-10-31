@@ -7,7 +7,8 @@ defmodule SnekinfoWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_snekinfo_key",
-    signing_salt: "xeGJtpv3"
+    signing_salt: "xeGJtpv3",
+    extra: "SameSite=Lax"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]

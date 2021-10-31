@@ -13,7 +13,7 @@
 
   <div class="mb-3">
     <%= label f, :sex %>
-    <%= text_input f, :sex, class: "form-control" %>
+    <%= select f, :sex, Snekinfo.Snakes.Snake.sexes(), class: "form-control" %>
     <%= error_tag f, :sex %>
   </div>
 
@@ -21,6 +21,19 @@
     <%= label f, :born %>
     <%= date_input f, :born, class: "form-control" %>
     <%= error_tag f, :born %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :litter_id %>
+    <%= select f, :litter_id, Enum.map(@litters, &litter_option/1), class: "form-control" %>
+    <%= error_tag f, :litter_id %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :traits %>
+    <%= multiple_select(f, :traits, Enum.map(@traits, &trait_option/1),
+      selected: Enum.map(@snake_traits, &(&1.id)), class: "form-control") %>
+    <%= error_tag f, :traits %>
   </div>
 
   <div class="mb-3">

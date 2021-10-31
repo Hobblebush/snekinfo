@@ -6,15 +6,21 @@
   <% end %>
 
   <div class="mb-3">
-    <%= label f, :weight %>
-    <%= number_input f, :weight, step: "any", class: "form-control" %>
-    <%= error_tag f, :weight %>
+    <%= label f, :snake_id %>
+    <%= select f, :snake_id, snake_options(@snakes), class: "form-control" %>
+    <%= error_tag f, :snake_id %>
   </div>
 
   <div class="mb-3">
-    <%= label f, :timestamp %>
-   <%= datetime_select f, :timestamp, class: "form-control" %>
-    <%= error_tag f, :timestamp %>
+    <%= label f, :date %>
+    <%= date_input f, :date, class: "form-control" %>
+    <%= error_tag f, :date %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :weight %>
+    <%= number_input f, :weight, step: "any", class: "form-control" %>
+    <%= error_tag f, :weight %>
   </div>
 
   <div class="mb-3">

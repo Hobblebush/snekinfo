@@ -18,7 +18,7 @@ defmodule Snekinfo.Litters.Litter do
   @doc false
   def changeset(litter, attrs) do
     litter
-    |> cast(attrs, [:born])
-    |> validate_required([:born])
+    |> cast(attrs, [:mother_id, :father_id, :born])
+    |> validate_required([:mother_id, :born])
   end
 end
