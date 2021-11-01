@@ -3,9 +3,9 @@ defmodule SnekinfoWeb.TraitControllerTest do
 
   import Snekinfo.TraitsFixtures
 
-  @create_attrs %{inheritance: "some inheritance", name: "some name"}
-  @update_attrs %{inheritance: "some updated inheritance", name: "some updated name"}
-  @invalid_attrs %{inheritance: nil, name: nil}
+  @create_attrs %{inheritance: "poly", name: "ugly"}
+  @update_attrs %{inheritance: "dominant", name: "bitey"}
+  @invalid_attrs %{inheritance: "goat", name: ""}
 
   describe "index" do
     test "lists all traits", %{conn: conn} do
@@ -29,7 +29,8 @@ defmodule SnekinfoWeb.TraitControllerTest do
       assert redirected_to(conn) == Routes.trait_path(conn, :show, id)
 
       conn = get(conn, Routes.trait_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Trait"
+      assert html_response(conn, 200) =~ "Trait"
+      assert html_response(conn, 200) =~ "Snakes with"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -55,7 +56,7 @@ defmodule SnekinfoWeb.TraitControllerTest do
       assert redirected_to(conn) == Routes.trait_path(conn, :show, trait)
 
       conn = get(conn, Routes.trait_path(conn, :show, trait))
-      assert html_response(conn, 200) =~ "some updated inheritance"
+      assert html_response(conn, 200) =~ "dominant"
     end
 
     test "renders errors when data is invalid", %{conn: conn, trait: trait} do

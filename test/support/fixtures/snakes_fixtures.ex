@@ -11,24 +11,10 @@ defmodule Snekinfo.SnakesFixtures do
     {:ok, snake} =
       attrs
       |> Enum.into(%{
-        name: "some name",
-        sex: "some sex"
-      })
-      |> Snekinfo.Snakes.create_snake()
-
-    snake
-  end
-
-  @doc """
-  Generate a snake.
-  """
-  def snake_fixture(attrs \\ %{}) do
-    {:ok, snake} =
-      attrs
-      |> Enum.into(%{
-        born: ~D[2021-10-20],
-        name: "some name",
-        sex: "some sex"
+        born: ~D[2018-10-20],
+        name: "Alex",
+        sex: "F",
+        traits: [],
       })
       |> Snekinfo.Snakes.create_snake()
 

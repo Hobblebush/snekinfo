@@ -21,11 +21,11 @@ defmodule Snekinfo.TraitsTest do
     end
 
     test "create_trait/1 with valid data creates a trait" do
-      valid_attrs = %{inheritance: "some inheritance", name: "some name"}
+      valid_attrs = %{inheritance: "dominant", name: "flippers"}
 
       assert {:ok, %Trait{} = trait} = Traits.create_trait(valid_attrs)
-      assert trait.inheritance == "some inheritance"
-      assert trait.name == "some name"
+      assert trait.inheritance == "dominant"
+      assert trait.name == "flippers"
     end
 
     test "create_trait/1 with invalid data returns error changeset" do
@@ -34,11 +34,11 @@ defmodule Snekinfo.TraitsTest do
 
     test "update_trait/2 with valid data updates the trait" do
       trait = trait_fixture()
-      update_attrs = %{inheritance: "some updated inheritance", name: "some updated name"}
+      update_attrs = %{inheritance: "recessive", name: "toothless"}
 
       assert {:ok, %Trait{} = trait} = Traits.update_trait(trait, update_attrs)
-      assert trait.inheritance == "some updated inheritance"
-      assert trait.name == "some updated name"
+      assert trait.inheritance == "recessive"
+      assert trait.name == "toothless"
     end
 
     test "update_trait/2 with invalid data returns error changeset" do

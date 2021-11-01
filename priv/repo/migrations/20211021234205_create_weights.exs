@@ -4,7 +4,7 @@ defmodule Snekinfo.Repo.Migrations.CreateWeights do
   def change do
     create table(:weights) do
       add :weight, :float, null: false
-      add :timestamp, :utc_datetime, null: false
+      add :date, :date, null: false
       add :snake_id, references(:snakes, on_delete: :nothing), null: false
 
       timestamps()

@@ -1,13 +1,40 @@
 <h1>Show Litter</h1>
 
-<ul>
+<p>
+  <span><%= link "Edit", to: Routes.litter_path(@conn, :edit, @litter) %></span> |
+  <span><%= link "Back", to: Routes.litter_path(@conn, :index) %></span>
+</p>
 
+<ul>
   <li>
     <strong>Born:</strong>
     <%= @litter.born %>
   </li>
 
+  <li>
+    <strong>Mother:</strong>
+    <%= snake_link(@conn, @litter.mother) %>
+  </li>
+
+  <li>
+    <strong>Father:</strong>
+    <%= snake_link(@conn, @litter.father) %>
+  </li>
+
+  <li>
+    <strong>Size:</strong>
+    <%= @litter.size %>
+  </li>
 </ul>
 
-<span><%= link "Edit", to: Routes.litter_path(@conn, :edit, @litter) %></span> |
-<span><%= link "Back", to: Routes.litter_path(@conn, :index) %></span>
+<h2>Snakes in Litter</h2>
+
+<p>
+  <%= link "New Snake", to: Routes.litter_snake_path(@conn, :new, @litter) %>
+</p>
+
+<ul>
+  <%= for snake <- @litter.snakes do %>
+    <li><%= snake_link(@conn, snake) %></li>
+  <% end %>
+</ul>

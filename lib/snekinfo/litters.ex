@@ -18,7 +18,16 @@ defmodule Snekinfo.Litters do
 
   """
   def list_litters do
-    Repo.all(Litter)
+    xs = Repo.all from lit in Litter,
+      left_join: sn in assoc(lit, :snakes),
+      group_by: lit.id,
+      select: {lit, count(sn.id)},
+      order_by: [desc: :born],
+      preload: [:mother, :father]
+
+    Enum.map xs, fn {lit, size} ->
+      %Litter{ lit | size: size }
+    end
   end
 
   @doc """
@@ -35,7 +44,12 @@ defmodule Snekinfo.Litters do
       ** (Ecto.NoResultsError)
 
   """
-  def get_litter!(id), do: Repo.get!(Litter, id)
+  def get_litter!(id) do
+    lit = Repo.get!(Litter, id)
+    |> Repo.preload([:mother, :father, :snakes])
+
+    %Litter{ lit | size: length(lit.snakes) }
+  end
 
   @doc """
   Creates a litter.
@@ -50,9 +64,17 @@ defmodule Snekinfo.Litters do
 
   """
   def create_litter(attrs \\ %{}) do
-    %Litter{}
+    rv = %Litter{}
     |> Litter.changeset(attrs)
     |> Repo.insert()
+
+    case rv do
+      {:ok, litter} ->
+        litter = %Litter{ litter | size: 0 }
+        {:ok, litter}
+      other ->
+        other
+    end
   end
 
   @doc """

@@ -37,6 +37,11 @@ defmodule Snekinfo.Traits do
   """
   def get_trait!(id), do: Repo.get!(Trait, id)
 
+  def get_trait_snakes!(trait) do
+    trait = Repo.preload(trait, :snakes)
+    trait.snakes
+  end
+
   @doc """
   Creates a trait.
 

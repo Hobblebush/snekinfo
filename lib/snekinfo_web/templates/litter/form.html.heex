@@ -11,6 +11,18 @@
   </div>
 
   <div class="mb-3">
+    <%= label f, :mother_id %>
+    <%= select f, :mother_id, snake_options(@snakes), class: "form-control" %>
+    <%= error_tag f, :mother_id %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :father_id %>
+    <%= select f, :father_id, snake_options([nil | @snakes]), class: "form-control" %>
+    <%= error_tag f, :father_id %>
+  </div>
+
+  <div class="mb-3">
     <%= submit "Save", class: "btn btn-primary" %>
   </div>
 </.form>

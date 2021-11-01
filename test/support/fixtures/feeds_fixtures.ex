@@ -4,16 +4,21 @@ defmodule Snekinfo.FeedsFixtures do
   entities via the `Snekinfo.Feeds` context.
   """
 
+  alias Snekinfo.SnakesFixtures
+
   @doc """
   Generate a feed.
   """
   def feed_fixture(attrs \\ %{}) do
+    snake = SnakesFixtures.snake_fixture()
+
     {:ok, feed} =
       attrs
       |> Enum.into(%{
+        snake_id: snake.id,
         ingested?: true,
         live?: true,
-        timestamp: ~U[2021-10-20 23:44:00Z],
+        date: ~D[2021-10-20],
         weight: 120.5
       })
       |> Snekinfo.Feeds.create_feed()

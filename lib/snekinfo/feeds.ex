@@ -21,6 +21,23 @@ defmodule Snekinfo.Feeds do
     Repo.all(Feed)
   end
 
+  def list_feeds(snake_id) do
+    if snake_id do
+      Repo.all from fd in Feed,
+        where: fd.snake_id == ^snake_id
+    else
+      list_feeds()
+    end
+  end
+
+  def list_recent_feeds_for_snake(snake, limit) do
+    xs = Repo.all from fd in Feed,
+      where: fd.snake_id == ^snake.id,
+      limit: ^limit,
+      order_by: [desc: fd.date]
+    Enum.map(xs, &(%Feed{ &1 | snake: snake }))
+  end
+
   @doc """
   Gets a single feed.
 
@@ -35,7 +52,10 @@ defmodule Snekinfo.Feeds do
       ** (Ecto.NoResultsError)
 
   """
-  def get_feed!(id), do: Repo.get!(Feed, id)
+  def get_feed!(id) do
+    Repo.get!(Feed, id)
+    |> Repo.preload(:snake)
+  end
 
   @doc """
   Creates a feed.

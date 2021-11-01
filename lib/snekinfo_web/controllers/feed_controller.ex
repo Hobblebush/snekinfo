@@ -3,15 +3,19 @@ defmodule SnekinfoWeb.FeedController do
 
   alias Snekinfo.Feeds
   alias Snekinfo.Feeds.Feed
+  alias Snekinfo.Snakes
 
-  def index(conn, _params) do
-    feeds = Feeds.list_feeds()
-    render(conn, "index.html", feeds: feeds)
+  def index(conn, params) do
+    snake_id = params["snake_id"]
+    feeds = Feeds.list_feeds(snake_id)
+    render(conn, "index.html", feeds: feeds, snake_id: snake_id)
   end
 
-  def new(conn, _params) do
-    changeset = Feeds.change_feed(%Feed{})
-    render(conn, "new.html", changeset: changeset)
+  def new(conn, params) do
+    snakes = Snakes.list_snakes()
+    snake_id = params["snake_id"]
+    changeset = Feeds.change_feed(%Feed{snake_id: snake_id})
+    render(conn, "new.html", changeset: changeset, snakes: snakes)
   end
 
   def create(conn, %{"feed" => feed_params}) do
@@ -22,7 +26,8 @@ defmodule SnekinfoWeb.FeedController do
         |> redirect(to: Routes.feed_path(conn, :show, feed))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "new.html", changeset: changeset, snakes: snakes)
     end
   end
 
@@ -32,9 +37,10 @@ defmodule SnekinfoWeb.FeedController do
   end
 
   def edit(conn, %{"id" => id}) do
+    snakes = Snakes.list_snakes()
     feed = Feeds.get_feed!(id)
     changeset = Feeds.change_feed(feed)
-    render(conn, "edit.html", feed: feed, changeset: changeset)
+    render(conn, "edit.html", feed: feed, changeset: changeset, snakes: snakes)
   end
 
   def update(conn, %{"id" => id, "feed" => feed_params}) do
@@ -47,7 +53,8 @@ defmodule SnekinfoWeb.FeedController do
         |> redirect(to: Routes.feed_path(conn, :show, feed))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", feed: feed, changeset: changeset)
+        snakes = Snakes.list_snakes()
+        render(conn, "edit.html", feed: feed, changeset: changeset, snakes: snakes)
     end
   end
 

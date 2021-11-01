@@ -19,6 +19,24 @@ defmodule Snekinfo.Weights do
   """
   def list_weights do
     Repo.all(Weight)
+    |> Repo.preload(:snake)
+  end
+
+  def list_weights(snake_id) do
+    if snake_id do
+      Repo.all from wt in Weight,
+        where: wt.snake_id == ^snake_id
+    else
+      list_weights()
+    end
+  end
+
+  def list_recent_weights_for_snake(snake, limit) do
+    xs = Repo.all from wt in Weight,
+      where: wt.snake_id == ^snake.id,
+      limit: ^limit,
+      order_by: [desc: wt.date]
+    Enum.map(xs, &(%Weight{ &1 | snake: snake }))
   end
 
   @doc """
@@ -35,7 +53,10 @@ defmodule Snekinfo.Weights do
       ** (Ecto.NoResultsError)
 
   """
-  def get_weight!(id), do: Repo.get!(Weight, id)
+  def get_weight!(id) do
+    Repo.get!(Weight, id)
+    |> Repo.preload(:snake)
+  end
 
   @doc """
   Creates a weight.

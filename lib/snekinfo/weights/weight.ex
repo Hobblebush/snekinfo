@@ -2,10 +2,12 @@ defmodule Snekinfo.Weights.Weight do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Snekinfo.Snakes.Snake
+
   schema "weights" do
-    field :timestamp, :utc_datetime
+    field :date, :date
     field :weight, :float
-    field :snake_id, :id
+    belongs_to :snake, Snake
 
     timestamps()
   end
@@ -13,7 +15,8 @@ defmodule Snekinfo.Weights.Weight do
   @doc false
   def changeset(weight, attrs) do
     weight
-    |> cast(attrs, [:weight, :timestamp])
-    |> validate_required([:weight, :timestamp])
+    |> cast(attrs, [:snake_id, :weight, :date])
+    |> validate_required([:snake_id, :weight, :date])
+    |> validate_number(:weight, greater_than: 0.0)
   end
 end

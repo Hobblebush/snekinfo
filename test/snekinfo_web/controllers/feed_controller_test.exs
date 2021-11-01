@@ -2,10 +2,11 @@ defmodule SnekinfoWeb.FeedControllerTest do
   use SnekinfoWeb.ConnCase
 
   import Snekinfo.FeedsFixtures
+  alias Snekinfo.SnakesFixtures
 
-  @create_attrs %{ingested?: true, live?: true, timestamp: ~U[2021-10-20 23:44:00Z], weight: 120.5}
-  @update_attrs %{ingested?: false, live?: false, timestamp: ~U[2021-10-21 23:44:00Z], weight: 456.7}
-  @invalid_attrs %{ingested?: nil, live?: nil, timestamp: nil, weight: nil}
+  @create_attrs %{ingested?: true, live?: true, date: ~D[2021-10-20], weight: 120.5}
+  @update_attrs %{ingested?: false, live?: false, date: ~D[2021-10-21], weight: 456.7}
+  @invalid_attrs %{ingested?: true, live?: true, timestamp: "goat", weight: -7.2}
 
   describe "index" do
     test "lists all feeds", %{conn: conn} do
@@ -23,7 +24,10 @@ defmodule SnekinfoWeb.FeedControllerTest do
 
   describe "create feed" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.feed_path(conn, :create), feed: @create_attrs)
+      snake = SnakesFixtures.snake_fixture()
+      feed_attrs = Map.put(@create_attrs, :snake_id, snake.id)
+
+      conn = post(conn, Routes.feed_path(conn, :create), feed: feed_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.feed_path(conn, :show, id)

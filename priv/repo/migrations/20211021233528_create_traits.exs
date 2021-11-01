@@ -8,5 +8,7 @@ defmodule Snekinfo.Repo.Migrations.CreateTraits do
 
       timestamps()
     end
+
+    create index("traits", [:name], unique: true)
   end
 end

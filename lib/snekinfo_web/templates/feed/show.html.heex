@@ -1,6 +1,17 @@
 <h1>Show Feed</h1>
 
 <ul>
+  <li>
+    <strong>Snake:</strong>
+    <%= snake_link(@conn, @feed.snake) %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <span class="pretty-date">
+      <%= @feed.date %>
+    </span>
+  </li>
 
   <li>
     <strong>Live?:</strong>
@@ -15,11 +26,6 @@
   <li>
     <strong>Ingested?:</strong>
     <%= @feed.ingested? %>
-  </li>
-
-  <li>
-    <strong>Timestamp:</strong>
-    <%= @feed.timestamp %>
   </li>
 
 </ul>

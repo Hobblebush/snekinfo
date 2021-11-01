@@ -3,9 +3,9 @@ defmodule SnekinfoWeb.SnakeControllerTest do
 
   import Snekinfo.SnakesFixtures
 
-  @create_attrs %{born: ~D[2021-10-20], name: "some name", sex: "some sex"}
-  @update_attrs %{born: ~D[2021-10-21], name: "some updated name", sex: "some updated sex"}
-  @invalid_attrs %{born: nil, name: nil, sex: nil}
+  @create_attrs %{born: ~D[2021-10-20], name: "Sally", sex: "F"}
+  @update_attrs %{born: ~D[2021-10-21], name: "Steve", sex: "M"}
+  @invalid_attrs %{born: nil, name: "", sex: "grape"}
 
   describe "index" do
     test "lists all snakes", %{conn: conn} do
@@ -55,7 +55,7 @@ defmodule SnekinfoWeb.SnakeControllerTest do
       assert redirected_to(conn) == Routes.snake_path(conn, :show, snake)
 
       conn = get(conn, Routes.snake_path(conn, :show, snake))
-      assert html_response(conn, 200) =~ "some updated name"
+      assert html_response(conn, 200) =~ "Steve"
     end
 
     test "renders errors when data is invalid", %{conn: conn, snake: snake} do

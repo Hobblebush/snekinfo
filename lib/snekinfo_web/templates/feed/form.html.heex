@@ -5,33 +5,35 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-3">
     <%= label f, :snake_id %>
-    <%= number_input f, :snake_id, step: "any", class: "form-control" %>
+    <%= select f, :snake_id, snake_options(@snakes), class: "form-control" %>
     <%= error_tag f, :snake_id %>
   </div>
 
-  <div class="form-check">
+  <div class="mb-3">
+    <%= label f, :date %>
+    <%= date_input f, :date, class: "form-control" %>
+    <%= error_tag f, :date %>
+  </div>
+
+  <div class="mb-3 form-check">
     <%= label f, :live?, class: "form-check-label" %>
     <%= checkbox f, :live?, class: "form-check-input"%>
     <%= error_tag f, :live? %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= label f, :weight %>
     <%= number_input f, :weight, step: "any", class: "form-control" %>
     <%= error_tag f, :weight %>
   </div>
 
-  <div class="form-check">
+  <div class="mb-3 form-check">
     <%= label f, :ingested?, class: "form-check-label"%>
     <%= checkbox f, :ingested?, class: "form-check-input" %>
     <%= error_tag f, :ingested? %>
   </div>
-
-  <%= label f, :timestamp %>
-  <%= datetime_input f, :timestamp %>
-  <%= error_tag f, :timestamp %>
 
   <div>
     <%= submit "Save", class: "btn btn-primary"%>
