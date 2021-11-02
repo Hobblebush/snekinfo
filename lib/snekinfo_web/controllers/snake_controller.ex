@@ -14,16 +14,19 @@ defmodule SnekinfoWeb.SnakeController do
   end
 
   def new(conn, params) do
-    litters = [nil | Litters.list_litters()]
+    litters = Litters.list_litters()
+    litter = Enum.find(litters, &(to_string(&1.id) == params["litter_id"]))
     traits = Traits.list_traits()
-    snake0 = %Snake{traits: [], litter_id: params["litter_id"]}
+    snake0 = %Snake{traits: [], litter_id: try_get(litter, [:id]),
+                    born: try_get(litter, [:born])}
     changeset = Snakes.change_snake(snake0)
-    render(conn, "new.html", changeset: changeset, litters: litters,
+    render(conn, "new.html", changeset: changeset, litters: [nil | litters],
       traits: traits, snake_traits: [])
   end
 
   def create(conn, %{"snake" => snake_params}) do
-    snake_params = load_traits(snake_params)
+    traits = Traits.list_traits()
+    snake_params = fill_traits(snake_params, traits)
     case Snakes.create_snake(snake_params) do
       {:ok, snake} ->
         conn
@@ -32,9 +35,9 @@ defmodule SnekinfoWeb.SnakeController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         litters = [nil | Litters.list_litters()]
-        traits = Traits.list_traits()
         render(conn, "new.html", changeset: changeset,
-          litters: litters, traits: traits, snake_traits: [])
+          litters: litters, traits: traits,
+          snake_traits: snake_params["traits"])
     end
   end
 
@@ -52,12 +55,14 @@ defmodule SnekinfoWeb.SnakeController do
     snake = Snakes.get_snake!(id)
     changeset = Snakes.change_snake(snake)
     render(conn, "edit.html", snake: snake, changeset: changeset,
-      litters: litters, traits: traits, snake_traits: snake.traits)
+      litters: litters, traits: traits,
+      snake_traits: snake.traits)
   end
 
   def update(conn, %{"id" => id, "snake" => snake_params}) do
+    traits = Traits.list_traits()
+    snake_params = fill_traits(snake_params, traits)
     snake = Snakes.get_snake!(id)
-    snake_params = load_traits(snake_params)
 
     case Snakes.update_snake(snake, snake_params) do
       {:ok, snake} ->
@@ -67,9 +72,8 @@ defmodule SnekinfoWeb.SnakeController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         litters = [nil | Litters.list_litters()]
-        traits = Traits.list_traits()
         render(conn, "edit.html", snake: snake, changeset: changeset,
-          litters: litters, traits: traits, snake_traits: snake.traits)
+          litters: litters, traits: traits, snake_traits: snake_params["traits"])
     end
   end
 
@@ -82,11 +86,12 @@ defmodule SnekinfoWeb.SnakeController do
     |> redirect(to: Routes.snake_path(conn, :index))
   end
 
-  def load_traits(params) do
-    xs = params["traits"] || []
-    ys = Enum.map xs, fn id ->
-      Traits.get_trait!(id)
-    end
-    Map.put(params, "traits", ys)
+  def fill_traits(params, traits) do
+    xs = (params["traits"] || [])
+    |> Enum.map(fn id ->
+      Enum.find(traits, &(to_string(&1.id) == id))
+    end)
+    |> Enum.filter(&(&1 != nil))
+    Map.put(params, "traits", xs)
   end
 end

@@ -24,6 +24,7 @@ defmodule SnekinfoWeb do
       import Plug.Conn
       import SnekinfoWeb.Gettext
       alias SnekinfoWeb.Router.Helpers, as: Routes
+      import Snekinfo.Common
     end
   end
 
@@ -93,6 +94,7 @@ defmodule SnekinfoWeb do
 
       import SnekinfoWeb.ViewHelpers
       import SnekinfoWeb.DateHelpers
+      import Snekinfo.Common
     end
   end
 

@@ -18,7 +18,8 @@ defmodule Snekinfo.Traits do
 
   """
   def list_traits do
-    Repo.all(Trait)
+    Repo.all from tr in Trait,
+      order_by: :name
   end
 
   @doc """

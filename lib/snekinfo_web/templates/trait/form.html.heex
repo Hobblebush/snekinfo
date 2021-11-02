@@ -13,7 +13,8 @@
 
   <div class="mb-3">
     <%= label f, :inheritance %>
-    <%= text_input f, :inheritance, class: "form-control"%>
+    <%= select(f, :inheritance, Snekinfo.Traits.Trait.inheritances(),
+      class: "form-control") %>
     <%= error_tag f, :inheritance %>
   </div>
 

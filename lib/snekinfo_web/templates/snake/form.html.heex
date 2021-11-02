@@ -31,10 +31,11 @@
 
   <div class="mb-3">
     <%= label f, :traits %>
-    <%= multiple_select(f, :traits, Enum.map(@traits, &trait_option/1),
-      selected: Enum.map(@snake_traits, &(&1.id)), class: "form-control") %>
+    <%= multi_select(f, :traits, Enum.map(@traits, &trait_option/1),
+      Enum.map(@snake_traits, &(&1.id)), class: "form-control") %>
     <%= error_tag f, :traits %>
   </div>
+
 
   <div class="mb-3">
     <%= submit "Save", class: "btn btn-primary" %>

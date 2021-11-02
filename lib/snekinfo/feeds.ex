@@ -19,6 +19,7 @@ defmodule Snekinfo.Feeds do
   """
   def list_feeds do
     Repo.all(Feed)
+    |> Repo.preload(:snake)
   end
 
   def list_feeds(snake_id) do
