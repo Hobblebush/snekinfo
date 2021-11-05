@@ -45,7 +45,8 @@ defmodule SnekinfoWeb.SnakeController do
     snake = Snakes.get_snake!(id)
     recent_feeds = Feeds.list_recent_feeds_for_snake(snake, 10)
     recent_weights = Weights.list_recent_weights_for_snake(snake, 10)
-    render(conn, "show.html", snake: snake,
+    snake_litters = Snakes.list_snake_litters(snake)
+    render(conn, "show.html", snake: snake, snake_litters: snake_litters,
       recent_feeds: recent_feeds, recent_weights: recent_weights)
   end
 

@@ -38,9 +38,8 @@ defmodule Snekinfo.Traits do
   """
   def get_trait!(id), do: Repo.get!(Trait, id)
 
-  def get_trait_snakes!(trait) do
-    trait = Repo.preload(trait, :snakes)
-    trait.snakes
+  def preload_trait_snakes(trait) do
+    Repo.preload(trait, [snakes: [:litter, :traits]])
   end
 
   @doc """

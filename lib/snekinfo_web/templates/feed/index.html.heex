@@ -1,4 +1,9 @@
-<h1>Listing Feeds</h1>
+<h1>
+  Listing Feeds
+  <%= if @snake do %>
+    for <%= snake_link(@conn, @snake) %>
+  <% end %>
+</h1>
 
 <%= if assigns[:snake_id] do %>
   <%= render "single_table.html", Map.put(assigns, :feeds, @feeds) %>

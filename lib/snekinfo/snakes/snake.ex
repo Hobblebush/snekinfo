@@ -4,6 +4,8 @@ defmodule Snekinfo.Snakes.Snake do
 
   alias Snekinfo.Litters.Litter
   alias Snekinfo.Traits.Trait
+  alias Snekinfo.Feeds.Feed
+  alias Snekinfo.Weights.Weight
 
   schema "snakes" do
     field :born, :date
@@ -12,6 +14,8 @@ defmodule Snekinfo.Snakes.Snake do
     belongs_to :litter, Litter
 
     many_to_many :traits, Trait, join_through: "snake_traits", on_replace: :delete
+    has_many :feeds, Feed
+    has_many :weights, Weight
 
     timestamps()
   end

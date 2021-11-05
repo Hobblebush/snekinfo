@@ -7,8 +7,9 @@ defmodule SnekinfoWeb.WeightController do
 
   def index(conn, params) do
     snake_id = params["snake_id"]
+    snake = Snakes.get_snake(snake_id)
     weights = Weights.list_weights(snake_id)
-    render(conn, "index.html", weights: weights, snake_id: snake_id)
+    render(conn, "index.html", weights: weights, snake_id: snake_id, snake: snake)
   end
 
   def new(conn, params) do

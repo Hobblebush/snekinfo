@@ -1,4 +1,9 @@
-<h1>Listing Weights</h1>
+<h1>
+  Listing Weights
+  <%= if @snake do %>
+    for <%= snake_link(@conn, @snake) %>
+  <% end %>
+</h1>
 
 <%= if assigns[:snake_id] do %>
   <%= render "single_table.html", assigns %>

@@ -15,8 +15,4 @@
 
 <h2>Snakes with <%= @trait.name %></h2>
 
-<ul>
-  <%= for snake <- @snakes do %>
-    <li><%= link snake.name, to: Routes.snake_path(@conn, :show, snake) %></li>
-  <% end %>
-</ul>
+<%= render SnekinfoWeb.SnakeView, "table.html", Map.put(assigns, :snakes, @trait.snakes) %>

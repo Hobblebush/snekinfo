@@ -54,3 +54,11 @@
                Map.put(assigns, :weights, @recent_weights)) %>
   </div>
 </div>
+
+<div class="row">
+  <div class="col">
+    <h2>Litters</h2>
+    <%= render(SnekinfoWeb.LitterView, "table.html",
+               Map.put(assigns, :litters, @snake_litters)) %>
+  </div>
+</div>

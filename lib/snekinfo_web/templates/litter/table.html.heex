@@ -1,0 +1,28 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Born</th>
+      <th>Mother</th>
+      <th>Father</th>
+      <th>Size</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for litter <- @litters do %>
+    <tr>
+      <td class="pretty-date"><%= litter.born %></td>
+      <td><%= snake_link(@conn, litter.mother) %></td>
+      <td><%= snake_link(@conn, litter.father) %></td>
+      <td><%= litter.size %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.litter_path(@conn, :show, litter) %></span>
+        <span><%= link "Edit", to: Routes.litter_path(@conn, :edit, litter) %></span>
+        <span><%= link "Delete", to: Routes.litter_path(@conn, :delete, litter), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

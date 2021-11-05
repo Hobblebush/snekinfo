@@ -1,34 +1,7 @@
 <h1>Listing Snakes</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Sex</th>
-      <th>Born</th>
-      <th>Litter</th>
-      <th>Traits</th>
+<p>
+  <span><%= link "New Snake", to: Routes.snake_path(@conn, :new) %></span>
+</p>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for snake <- @snakes do %>
-    <tr>
-      <td><%= snake.name %></td>
-      <td><%= snake.sex %></td>
-      <td class="pretty-date"><%= snake.born %></td>
-      <td><%= litter_link(@conn, snake.litter) %></td>
-      <td><%= trait_links(@conn, snake.traits) %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.snake_path(@conn, :show, snake) %></span>
-        <span><%= link "Edit", to: Routes.snake_path(@conn, :edit, snake) %></span>
-        <span><%= link "Delete", to: Routes.snake_path(@conn, :delete, snake), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Snake", to: Routes.snake_path(@conn, :new) %></span>
+<%= render "table.html", assigns %>
