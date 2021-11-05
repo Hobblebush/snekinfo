@@ -1,54 +1,10 @@
 
-/traits/new inh dropdown
+Features to build:
 
-/litters/new filter mother/father on sex
-
-/snakes/new if litter populate born
-
-/snakes/new traits in alphabetical order
-
-/snakes/form have empty set symbol for nil sex in dropdown
-
-/feeds preload snakes;
-
-/litter/show - put the whole snake table
-
-/snake/show - litters table
-
-/snake/create - snake sex *can* be null (replace null with empty set?)
-
-A snake has_many feeds, weights
-
-trait.ex: Don't require inheritence so it can be nil.
-
-litters#index - Link to parent snakes
-
-fix bug with traits in snake form on fail (create, update)
-
-traits#show make snakes the table
-
-Debug:
-
- - snakes/3/edit
- - snakes/create with trait
-
-view_helpers: for options, replace [none] with empty set symbol
-
-snakes/#/feeds, snakes/#/weights, snakes/#/litters - snake name in header
-
-Get rid of search box in header
-
-DONE TO HERE
-
-/feeds feature - missing snakes?
-
-Feed / weights: Maybe have categories to imply weight?
-
-Feature Req:
-
- - Snake event calendar
- - Continuous; week rows day columns
- - Show feeds/weights/sheds/poops for one snake
-
-feed/form & weight form: make snake a search box
-
+ - Show snakes that haven't been fed (/feeds? dashboard?)
+ - Feeds: Maybe have categories to imply weight rather than entering exact weight
+   in grams.
+ - Snake event calendar:
+   * Continuous; week rows day columns
+   * Show feeds/weights/sheds/poops for one snake
+ - feed/form & weight form: make snake a search box
