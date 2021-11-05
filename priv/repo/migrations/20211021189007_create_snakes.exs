@@ -4,7 +4,7 @@ defmodule Snekinfo.Repo.Migrations.CreateSnakes do
   def change do
     create table(:snakes) do
       add :name, :string, null: false
-      add :sex, :string
+      add :sex, :string, null: false
       add :born, :date 
 
       timestamps()

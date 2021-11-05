@@ -33,8 +33,5 @@
   <%= link "New Snake", to: Routes.litter_snake_path(@conn, :new, @litter) %>
 </p>
 
-<ul>
-  <%= for snake <- @litter.snakes do %>
-    <li><%= snake_link(@conn, snake) %></li>
-  <% end %>
-</ul>
+<%= render(SnekinfoWeb.SnakeView, "table.html",
+  (assigns |> Map.put(:snakes, @litter.snakes) |> Map.put(:hide_litter, true))) %>

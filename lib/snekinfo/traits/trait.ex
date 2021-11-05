@@ -14,7 +14,7 @@ defmodule Snekinfo.Traits.Trait do
   end
 
   def inheritances do
-    [nil, "dominant", "recessive", "poly"]
+    ["∅", "dominant", "recessive", "poly"]
   end
 
   @doc false

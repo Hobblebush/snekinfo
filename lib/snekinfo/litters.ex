@@ -18,16 +18,29 @@ defmodule Snekinfo.Litters do
 
   """
   def list_litters do
-    xs = Repo.all from lit in Litter,
+    xs = Repo.all litter_query()
+
+    Enum.map xs, fn {lit, size} ->
+      %Litter{ lit | size: size }
+    end
+  end
+
+  def list_snake_litters(snake_id) do
+    xs = Repo.all from lit in litter_query(),
+      where: lit.mother_id == ^snake_id or lit.father_id == ^snake_id
+
+    Enum.map xs, fn {lit, size} ->
+      %Litter{ lit | size: size }
+    end
+  end
+
+  def litter_query do
+    from lit in Litter,
       left_join: sn in assoc(lit, :snakes),
       group_by: lit.id,
       select: {lit, count(sn.id)},
       order_by: [desc: :born],
       preload: [:mother, :father]
-
-    Enum.map xs, fn {lit, size} ->
-      %Litter{ lit | size: size }
-    end
   end
 
   @doc """
@@ -46,7 +59,7 @@ defmodule Snekinfo.Litters do
   """
   def get_litter!(id) do
     lit = Repo.get!(Litter, id)
-    |> Repo.preload([:mother, :father, :snakes])
+    |> Repo.preload([:mother, :father, snakes: :traits])
 
     %Litter{ lit | size: length(lit.snakes) }
   end

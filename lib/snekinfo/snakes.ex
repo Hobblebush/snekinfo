@@ -41,6 +41,21 @@ defmodule Snekinfo.Snakes do
     |> Repo.preload([:traits, litter: :mother])
   end
 
+  def get_snake(id) do
+    if id do
+      get_snake!(id)
+    else
+      nil
+    end
+  end
+
+  def list_snake_litters(%Snake{} = snake) do
+    list_snake_litters(snake.id)
+  end
+  def list_snake_litters(snake_id) do
+    Snekinfo.Litters.list_snake_litters(snake_id)
+  end
+
   @doc """
   Creates a snake.
 

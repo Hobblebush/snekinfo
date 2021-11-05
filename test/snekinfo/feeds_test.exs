@@ -13,7 +13,7 @@ defmodule Snekinfo.FeedsTest do
 
     test "list_feeds/0 returns all feeds" do
       feed = feed_fixture()
-      assert Feeds.list_feeds() == [feed]
+      assert_near_eq(Feeds.list_feeds(), [feed])
     end
 
     test "get_feed!/1 returns the feed with given id" do

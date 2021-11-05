@@ -4,7 +4,7 @@ defmodule Snekinfo.Repo.Migrations.CreateTraits do
   def change do
     create table(:traits) do
       add :name, :string, null: false
-      add :inheritance, :string
+      add :inheritance, :string, null: false
 
       timestamps()
     end

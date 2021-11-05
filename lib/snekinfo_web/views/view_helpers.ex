@@ -2,15 +2,6 @@ defmodule SnekinfoWeb.ViewHelpers do
   use Phoenix.HTML
   alias SnekinfoWeb.Router.Helpers, as: Routes
 
-  def try_get(obj, []), do: obj
-  def try_get(obj, [k|ks]) do
-    if obj do
-      try_get(Map.get(obj, k), ks)
-    else
-      nil
-    end
-  end
-
   def snake_link(_conn, nil), do: "∅"
   def snake_link(conn, snake) do
     if Ecto.assoc_loaded?(snake) do
@@ -25,12 +16,13 @@ defmodule SnekinfoWeb.ViewHelpers do
       if snake do
         {snake.name, snake.id}
       else
-        {"[none]", ""}
+        {"∅", ""}
       end
     end
   end
 
   def litter_link(_conn, nil), do: "∅"
+  def litter_link(_conn, %Ecto.Association.NotLoaded{}), do: "??"
   def litter_link(conn, litter) do
     text = if Ecto.assoc_loaded?(litter.mother) do
       "#{to_string(litter.born)} #{litter.mother.name}"
@@ -43,7 +35,7 @@ defmodule SnekinfoWeb.ViewHelpers do
   def litter_option(litter) do
     cond do
       is_nil(litter) ->
-        {"[none]", ""}
+        {"∅", ""}
       Ecto.assoc_loaded?(litter.mother) ->
         {"#{to_string(litter.born)} #{litter.mother.name}", litter.id}
       true ->
@@ -64,5 +56,13 @@ defmodule SnekinfoWeb.ViewHelpers do
 
   def trait_option(trait) do
     {trait.name, trait.id}
+  end
+
+  def multi_select(form, field, options, selected, opts) do
+    opts = opts
+    |> Keyword.put_new(:id, input_id(form, field))
+    |> Keyword.put_new(:name, input_name(form, field) <> "[]")
+    |> Keyword.put_new(:multiple, "multiple")
+    content_tag(:select, options_for_select(options, selected), opts)
   end
 end

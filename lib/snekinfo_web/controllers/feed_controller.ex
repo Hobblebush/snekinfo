@@ -7,8 +7,9 @@ defmodule SnekinfoWeb.FeedController do
 
   def index(conn, params) do
     snake_id = params["snake_id"]
+    snake = Snakes.get_snake(snake_id)
     feeds = Feeds.list_feeds(snake_id)
-    render(conn, "index.html", feeds: feeds, snake_id: snake_id)
+    render(conn, "index.html", feeds: feeds, snake_id: snake_id, snake: snake)
   end
 
   def new(conn, params) do

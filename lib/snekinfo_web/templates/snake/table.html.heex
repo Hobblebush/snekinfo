@@ -1,0 +1,38 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <%= unless assigns[:hide_name] do %>
+        <th>Name</th>
+      <% end %>
+      <th>Sex</th>
+      <th>Born</th>
+      <%= unless assigns[:hide_litter] do %>
+        <th>Litter</th>
+      <% end %>
+      <th>Traits</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for snake <- @snakes do %>
+    <tr>
+      <%= unless assigns[:hide_name] do %>
+        <td><%= snake.name %></td>
+      <% end %>
+      <td><%= snake.sex %></td>
+      <td class="pretty-date"><%= snake.born %></td>
+      <%= unless assigns[:hide_litter] do %>
+        <td><%= litter_link(@conn, snake.litter) %></td>
+      <% end %>
+      <td><%= trait_links(@conn, snake.traits) %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.snake_path(@conn, :show, snake) %></span>
+        <span><%= link "Edit", to: Routes.snake_path(@conn, :edit, snake) %></span>
+        <span><%= link "Delete", to: Routes.snake_path(@conn, :delete, snake), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

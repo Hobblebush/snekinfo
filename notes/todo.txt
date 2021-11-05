@@ -1,0 +1,10 @@
+
+Features to build:
+
+ - Show snakes that haven't been fed (/feeds? dashboard?)
+ - Feeds: Maybe have categories to imply weight rather than entering exact weight
+   in grams.
+ - Snake event calendar:
+   * Continuous; week rows day columns
+   * Show feeds/weights/sheds/poops for one snake
+ - feed/form & weight form: make snake a search box
