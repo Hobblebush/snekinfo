@@ -1,6 +1,6 @@
 # Snekinfo
 
-To start your Phoenix server:
+## Development setup
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
@@ -8,12 +8,23 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Deployment
 
-## Learn more
+Prep (on server):
+ 
+ * Make sure you have a `snekinfo_prod` Postgres database set up on the server.
+ * Enable nginx config 
+ * Enable systemd service
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Build release (on dev box):
+
+ * Run `scripts/release.sh`
+
+Deploy to server:
+
+ * Copy tarball to server and unpack
+ * Make sure systemd service is stopped
+ * In `snekinfo` directory:
+   * Run `scripts/migrate.sh`
+   * Run `scripts/server.sh` to test; then kill
+ * Start systemd service.

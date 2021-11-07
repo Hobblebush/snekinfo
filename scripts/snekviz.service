@@ -1,0 +1,15 @@
+[Unit]
+Description=Snekinfo
+
+[Service]
+Type=simple
+User=snekinfo
+Group=snekinfo
+Restart=on-failure
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/snekinfo/snekinfo
+ExecStart=bash /home/snekinfo/snekinfo/scripts/start.sh
+
+[Install]
+WantedBy=multi-user.target
