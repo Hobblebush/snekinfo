@@ -36,6 +36,18 @@
     <%= error_tag f, :traits %>
   </div>
 
+  <div class="mb-3">
+    <%= label f, :produced_by %>
+    <%= text_input f, :produced_by, class: "form-control" %>
+    <%= error_tag f, :produced_by %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :cost %>
+    <%= number_input f, :cost, class: "form-control", step: "0.01" %>
+    <%= error_tag f, :cost %>
+  </div>
+
 
   <div class="mb-3">
     <%= submit "Save", class: "btn btn-primary" %>
