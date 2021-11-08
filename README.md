@@ -8,7 +8,7 @@
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-## Deployment
+## Production setup
 
 Prep (on server):
  
@@ -16,15 +16,5 @@ Prep (on server):
  * Enable nginx config 
  * Enable systemd service
 
-Build release (on dev box):
+See [the deployment guide](notes/deploy-guide.md) for how to deploy changes.
 
- * Run `scripts/release.sh`
-
-Deploy to server:
-
- * Copy tarball to server and unpack
- * Make sure systemd service is stopped
- * In `snekinfo` directory:
-   * Run `scripts/migrate.sh`
-   * Run `scripts/server.sh` to test; then kill
- * Start systemd service.
