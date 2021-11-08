@@ -24,7 +24,7 @@ defmodule Snekinfo.LittersTest do
     test "create_litter/1 with valid data creates a litter" do
       mother = SnakesFixtures.snake_fixture()
 
-      valid_attrs = %{mother_id: mother.id, born: ~D[2021-10-20]}
+      valid_attrs = %{mother_id: mother.id, born: ~D[2021-10-20], stills: 0, slugs: 1}
 
       assert {:ok, %Litter{} = litter} = Litters.create_litter(valid_attrs)
       assert litter.born == ~D[2021-10-20]

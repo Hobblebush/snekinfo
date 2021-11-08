@@ -67,7 +67,11 @@ defmodule Snekinfo.Litters do
   def mf_ratio(litter) do
     ms = Enum.filter(litter.snakes, &(&1.sex == "M"))
     fs = Enum.filter(litter.snakes, &(&1.sex == "F"))
-    length(ms)/length(fs)
+    if length(fs) > 0 do
+      length(ms)/length(fs)
+    else
+      nil
+    end
   end
 
   @doc """
