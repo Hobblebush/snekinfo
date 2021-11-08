@@ -61,7 +61,13 @@ defmodule Snekinfo.Litters do
     lit = Repo.get!(Litter, id)
     |> Repo.preload([:mother, :father, snakes: :traits])
 
-    %Litter{ lit | size: length(lit.snakes) }
+    %Litter{ lit | size: length(lit.snakes), mf_ratio: mf_ratio(lit) }
+  end
+
+  def mf_ratio(litter) do
+    ms = Enum.filter(litter.snakes, &(&1.sex == "M"))
+    fs = Enum.filter(litter.snakes, &(&1.sex == "F"))
+    length(ms)/length(fs)
   end
 
   @doc """
