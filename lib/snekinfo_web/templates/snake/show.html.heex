@@ -32,7 +32,19 @@
     <strong>Traits:</strong>
     <%= trait_links(@conn, @snake.traits) %>
   </li>
+
+   <li>
+    <strong>Produced By:</strong>
+    <%= @snake.produced_by %>
+  </li>
+
+   <li>
+    <strong>Cost:</strong>
+    <%= @snake.cost %>
+  </li>
+
 </ul>
+
 
 <div class="row">
   <div class="col">

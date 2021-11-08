@@ -11,6 +11,8 @@ defmodule Snekinfo.Snakes.Snake do
     field :born, :date
     field :name, :string
     field :sex, :string
+    field :produced_by, :string
+    field :cost, :decimal
     belongs_to :litter, Litter
 
     many_to_many :traits, Trait, join_through: "snake_traits", on_replace: :delete
@@ -29,7 +31,7 @@ defmodule Snekinfo.Snakes.Snake do
     traits = attrs["traits"] || attrs[:traits] || []
 
     snake
-    |> cast(attrs, [:litter_id, :name, :sex, :born])
+    |> cast(attrs, [:litter_id, :name, :sex, :born, :produced_by, :cost])
     |> put_assoc(:traits, traits)
     |> validate_required([:name, :sex, :born])
     |> validate_inclusion(:sex, sexes())
