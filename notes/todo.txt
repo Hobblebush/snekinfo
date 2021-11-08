@@ -8,3 +8,12 @@ Features to build:
    * Continuous; week rows day columns
    * Show feeds/weights/sheds/poops for one snake
  - feed/form & weight form: make snake a search box
+
+Requests 2021-11-07:
+
+ - Add "Produced By" and "Cost" fields to snakes
+ - Add Species to snakes
+ - Sort traits so that het then possible het (ph) come last
+ - Separated snakes into holdback, sales, and sold lists, with check box?
+ - Add price to sales/sold snakes
+ - Add "Slugs" and "Stills" and "M/F ratio" to Litters, these are numbers

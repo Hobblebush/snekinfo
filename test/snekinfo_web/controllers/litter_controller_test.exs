@@ -4,8 +4,8 @@ defmodule SnekinfoWeb.LitterControllerTest do
   import Snekinfo.LittersFixtures
   alias Snekinfo.SnakesFixtures
 
-  @create_attrs %{born: ~D[2021-10-20]}
-  @update_attrs %{born: ~D[2021-10-21]}
+  @create_attrs %{born: ~D[2021-10-20], stills: 0, slugs: 4}
+  @update_attrs %{born: ~D[2021-10-21], stills: 1, slugs: 4}
   @invalid_attrs %{born: "goat"}
 
   describe "index" do

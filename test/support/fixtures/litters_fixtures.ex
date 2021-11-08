@@ -16,7 +16,9 @@ defmodule Snekinfo.LittersFixtures do
       attrs
       |> Enum.into(%{
         mother_id: mother.id,
-        born: ~D[2021-10-20]
+        born: ~D[2021-10-20],
+        slugs: 0,
+        stills: 0
       })
       |> Snekinfo.Litters.create_litter()
 
