@@ -6,22 +6,9 @@
   <% end %>
 
   <div class="mb-3">
-    <%= label f, :species_id %>
-    <%= select(f, :species_id, species_options(@species), class: "form-control") %>
-    <%= error_tag f, :species_id %>
-  </div>
-
-  <div class="mb-3">
     <%= label f, :name %>
     <%= text_input f, :name, class: "form-control" %>
     <%= error_tag f, :name %>
-  </div>
-
-  <div class="mb-3">
-    <%= label f, :inheritance %>
-    <%= select(f, :inheritance, Snekinfo.Traits.Trait.inheritances(),
-      class: "form-control") %>
-    <%= error_tag f, :inheritance %>
   </div>
 
   <div class="mb-3">

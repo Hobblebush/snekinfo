@@ -12,6 +12,11 @@
   </li>
 
   <li>
+    <strong>Species:</strong>
+    <%= species_link(@conn, @snake.species) %>
+  </li>
+
+  <li>
     <strong>Sex:</strong>
     <%= @snake.sex %>
   </li>
@@ -72,5 +77,13 @@
     <h2>Litters</h2>
     <%= render(SnekinfoWeb.LitterView, "table.html",
                Map.put(assigns, :litters, @snake_litters)) %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h2>Actions</h2>
+    <p><%= link("Delete", to: Routes.snake_path(@conn, :delete, @snake),
+       method: :delete, data: [confirm: "Are you sure?"]) %></p>
   </div>
 </div>

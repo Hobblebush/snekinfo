@@ -8,6 +8,8 @@ defmodule Snekinfo.SnakesFixtures do
   Generate a snake.
   """
   def snake_fixture(attrs \\ %{}) do
+    sp = Snekinfo.TaxaFixtures.species_fixture()
+
     {:ok, snake} =
       attrs
       |> Enum.into(%{
@@ -15,6 +17,7 @@ defmodule Snekinfo.SnakesFixtures do
         name: "Alex",
         sex: "F",
         traits: [],
+        species_id: sp.id,
       })
       |> Snekinfo.Snakes.create_snake()
 

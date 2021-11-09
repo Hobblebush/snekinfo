@@ -7,6 +7,7 @@ defmodule SnekinfoWeb.SnakeController do
   alias Snekinfo.Weights
   alias Snekinfo.Litters
   alias Snekinfo.Traits
+  alias Snekinfo.Taxa
 
   def index(conn, _params) do
     snakes = Snakes.list_snakes()
@@ -17,11 +18,12 @@ defmodule SnekinfoWeb.SnakeController do
     litters = Litters.list_litters()
     litter = Enum.find(litters, &(to_string(&1.id) == params["litter_id"]))
     traits = Traits.list_traits()
+    species = Taxa.list_species()
     snake0 = %Snake{traits: [], litter_id: try_get(litter, [:id]),
                     born: try_get(litter, [:born])}
     changeset = Snakes.change_snake(snake0)
     render(conn, "new.html", changeset: changeset, litters: [nil | litters],
-      traits: traits, snake_traits: [])
+      traits: traits, species: species, snake_traits: [])
   end
 
   def create(conn, %{"snake" => snake_params}) do
@@ -35,8 +37,9 @@ defmodule SnekinfoWeb.SnakeController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         litters = [nil | Litters.list_litters()]
+        species = Taxa.list_species()
         render(conn, "new.html", changeset: changeset,
-          litters: litters, traits: traits,
+          litters: litters, traits: traits, species: species,
           snake_traits: snake_params["traits"])
     end
   end
@@ -52,11 +55,12 @@ defmodule SnekinfoWeb.SnakeController do
 
   def edit(conn, %{"id" => id}) do
     litters = [nil | Litters.list_litters()]
+    species = Taxa.list_species()
     traits = Traits.list_traits()
     snake = Snakes.get_snake!(id)
     changeset = Snakes.change_snake(snake)
     render(conn, "edit.html", snake: snake, changeset: changeset,
-      litters: litters, traits: traits,
+      litters: litters, traits: traits, species: species,
       snake_traits: snake.traits)
   end
 
@@ -73,8 +77,10 @@ defmodule SnekinfoWeb.SnakeController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         litters = [nil | Litters.list_litters()]
+        species = Taxa.list_species()
         render(conn, "edit.html", snake: snake, changeset: changeset,
-          litters: litters, traits: traits, snake_traits: snake_params["traits"])
+          litters: litters, traits: traits, species: species,
+          snake_traits: snake_params["traits"])
     end
   end
 

@@ -8,11 +8,14 @@ defmodule Snekinfo.TraitsFixtures do
   Generate a trait.
   """
   def trait_fixture(attrs \\ %{}) do
+    sp = Snekinfo.TaxaFixtures.species_fixture()
+
     {:ok, trait} =
       attrs
       |> Enum.into(%{
         inheritance: "poly",
-        name: "wings"
+        name: "wings",
+        species_id: sp.id,
       })
       |> Snekinfo.Traits.create_trait()
 

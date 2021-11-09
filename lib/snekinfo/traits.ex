@@ -19,7 +19,8 @@ defmodule Snekinfo.Traits do
   """
   def list_traits do
     Repo.all from tr in Trait,
-      order_by: :name
+      order_by: :name,
+      preload: [:species]
   end
 
   @doc """
@@ -39,7 +40,7 @@ defmodule Snekinfo.Traits do
   def get_trait!(id), do: Repo.get!(Trait, id)
 
   def preload_trait_snakes(trait) do
-    Repo.preload(trait, [snakes: [:litter, :traits]])
+    Repo.preload(trait, [:species, snakes: [:litter, :traits]])
   end
 
   @doc """
@@ -91,7 +92,9 @@ defmodule Snekinfo.Traits do
 
   """
   def delete_trait(%Trait{} = trait) do
-    Repo.delete(trait)
+    trait
+    |> Trait.delete_changeset()
+    |> Repo.delete()
   end
 
   @doc """

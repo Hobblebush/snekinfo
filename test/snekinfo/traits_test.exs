@@ -7,21 +7,23 @@ defmodule Snekinfo.TraitsTest do
     alias Snekinfo.Traits.Trait
 
     import Snekinfo.TraitsFixtures
+    import Snekinfo.TaxaFixtures
 
     @invalid_attrs %{inheritance: nil, name: nil}
 
     test "list_traits/0 returns all traits" do
       trait = trait_fixture()
-      assert Traits.list_traits() == [trait]
+      assert_near_eq(Traits.list_traits(), [trait])
     end
 
     test "get_trait!/1 returns the trait with given id" do
       trait = trait_fixture()
-      assert Traits.get_trait!(trait.id) == trait
+      assert_near_eq(Traits.get_trait!(trait.id), trait)
     end
 
     test "create_trait/1 with valid data creates a trait" do
-      valid_attrs = %{inheritance: "dominant", name: "flippers"}
+      sp = species_fixture()
+      valid_attrs = %{inheritance: "dominant", name: "flippers", species_id: sp.id}
 
       assert {:ok, %Trait{} = trait} = Traits.create_trait(valid_attrs)
       assert trait.inheritance == "dominant"
