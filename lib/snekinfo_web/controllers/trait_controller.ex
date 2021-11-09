@@ -3,6 +3,7 @@ defmodule SnekinfoWeb.TraitController do
 
   alias Snekinfo.Traits
   alias Snekinfo.Traits.Trait
+  alias Snekinfo.Taxa
 
   def index(conn, _params) do
     traits = Traits.list_traits()
@@ -10,8 +11,9 @@ defmodule SnekinfoWeb.TraitController do
   end
 
   def new(conn, _params) do
+    species = Taxa.list_species()
     changeset = Traits.change_trait(%Trait{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, species: species)
   end
 
   def create(conn, %{"trait" => trait_params}) do
@@ -22,7 +24,8 @@ defmodule SnekinfoWeb.TraitController do
         |> redirect(to: Routes.trait_path(conn, :show, trait))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        species = Taxa.list_species()
+        render(conn, "new.html", changeset: changeset, species: species)
     end
   end
 
@@ -35,8 +38,9 @@ defmodule SnekinfoWeb.TraitController do
 
   def edit(conn, %{"id" => id}) do
     trait = Traits.get_trait!(id)
+    species = Taxa.list_species()
     changeset = Traits.change_trait(trait)
-    render(conn, "edit.html", trait: trait, changeset: changeset)
+    render(conn, "edit.html", trait: trait, changeset: changeset, species: species)
   end
 
   def update(conn, %{"id" => id, "trait" => trait_params}) do
@@ -49,16 +53,22 @@ defmodule SnekinfoWeb.TraitController do
         |> redirect(to: Routes.trait_path(conn, :show, trait))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", trait: trait, changeset: changeset)
+        species = Taxa.list_species()
+        render(conn, "edit.html", trait: trait, changeset: changeset, species: species)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     trait = Traits.get_trait!(id)
-    {:ok, _trait} = Traits.delete_trait(trait)
-
-    conn
-    |> put_flash(:info, "Trait deleted successfully.")
-    |> redirect(to: Routes.trait_path(conn, :index))
+    case Traits.delete_trait(trait) do
+      {:ok, _trait} ->
+        conn
+        |> put_flash(:info, "Trait deleted successfully.")
+        |> redirect(to: Routes.trait_path(conn, :index))
+      {:error, cset} ->
+        conn
+        |> put_flash(:error, inspect(cset.errors))
+        |> redirect(to: Routes.trait_path(conn, :show, trait))
+    end
   end
 end

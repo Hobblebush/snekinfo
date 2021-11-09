@@ -2,6 +2,7 @@ defmodule SnekinfoWeb.TraitControllerTest do
   use SnekinfoWeb.ConnCase
 
   import Snekinfo.TraitsFixtures
+  import Snekinfo.TaxaFixtures
 
   @create_attrs %{inheritance: "poly", name: "ugly"}
   @update_attrs %{inheritance: "dominant", name: "bitey"}
@@ -23,7 +24,10 @@ defmodule SnekinfoWeb.TraitControllerTest do
 
   describe "create trait" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.trait_path(conn, :create), trait: @create_attrs)
+      species = species_fixture()
+
+      attrs = Map.put(@create_attrs, :species_id, species.id)
+      conn = post(conn, Routes.trait_path(conn, :create), trait: attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.trait_path(conn, :show, id)

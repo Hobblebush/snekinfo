@@ -28,6 +28,9 @@ defmodule SnekinfoWeb.Router do
     resources "/traits", TraitController
     resources "/weights", WeightController
     resources "/feeds", FeedController
+    resources "/species", SpeciesController do
+      resources "/snakes", SnakeController, only: [:index, :new]
+    end
   end
 
   # Other scopes may use custom stacks.

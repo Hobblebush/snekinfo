@@ -1,0 +1,13 @@
+<h1>Show Species</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @species.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.species_path(@conn, :edit, @species) %></span> |
+<span><%= link "Back", to: Routes.species_path(@conn, :index) %></span>

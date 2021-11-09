@@ -1,0 +1,26 @@
+<h1>Listing Species</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for species <- @species do %>
+    <tr>
+      <td><%= species.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.species_path(@conn, :show, species) %></span>
+        <span><%= link "Edit", to: Routes.species_path(@conn, :edit, species) %></span>
+        <span><%= link "Delete", to: Routes.species_path(@conn, :delete, species), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Species", to: Routes.species_path(@conn, :new) %></span>

@@ -19,7 +19,7 @@ defmodule Snekinfo.Snakes do
   """
   def list_snakes do
     Repo.all(Snake)
-    |> Repo.preload([:traits, litter: :mother])
+    |> Repo.preload([:traits, :species, litter: :mother])
   end
 
   @doc """
@@ -38,7 +38,7 @@ defmodule Snekinfo.Snakes do
   """
   def get_snake!(id) do
     Repo.get!(Snake, id)
-    |> Repo.preload([:traits, litter: :mother])
+    |> Repo.preload([:traits, :species, litter: :mother])
   end
 
   def get_snake(id) do

@@ -21,6 +21,12 @@ defmodule SnekinfoWeb.ViewHelpers do
     end
   end
 
+  def species_options(species) do
+    Enum.map species, fn sp ->
+      {sp.name, sp.id}
+    end
+  end
+
   def litter_link(_conn, nil), do: "∅"
   def litter_link(_conn, %Ecto.Association.NotLoaded{}), do: "??"
   def litter_link(conn, litter) do
@@ -64,5 +70,13 @@ defmodule SnekinfoWeb.ViewHelpers do
     |> Keyword.put_new(:name, input_name(form, field) <> "[]")
     |> Keyword.put_new(:multiple, "multiple")
     content_tag(:select, options_for_select(options, selected), opts)
+  end
+
+  def species_link(_conn, %Ecto.Association.NotLoaded{}), do: "??"
+  def species_link(conn, species) do
+    species.name
+    |> String.split()
+    |> Enum.at(0)
+    |> link(to: Routes.species_path(conn, :show, species))
   end
 end

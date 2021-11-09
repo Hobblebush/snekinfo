@@ -28,22 +28,20 @@
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <%= link("Snakes", to: Routes.snake_path(@conn, :index), class: "nav-link") %>
+                <%= link("Snakes", to: Routes.snake_path(@conn, :index),
+                  class: "nav-link") %>
+              </li>
+              <li>
+                <%= link("Litters", to: Routes.litter_path(@conn, :index),
+                  class: "nav-link") %>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
+                <%= link("Species", to: Routes.species_path(@conn, :index),
+                  class: "nav-link") %>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                   href="#" id="dropdown03"
-                   data-bs-toggle="dropdown"
-                   aria-expanded="false">More</a>
-                <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                  <li><%= link("Traits", to: Routes.trait_path(@conn, :index),
-                               class: "dropdown-item") %></li>
-                  <li><%= link("Litters", to: Routes.litter_path(@conn, :index),
-                               class: "dropdown-item") %></li>
-                </ul>
+              <li class="nav-item">
+                <%= link("Traits", to: Routes.trait_path(@conn, :index),
+                  class: "nav-link") %>
               </li>
             </ul>
           </div>

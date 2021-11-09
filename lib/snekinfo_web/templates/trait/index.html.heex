@@ -4,24 +4,27 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Species</th>
       <th>Inheritance</th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for trait <- @traits do %>
-    <tr>
-      <td><%= trait.name %></td>
-      <td><%= trait.inheritance %></td>
+    <%= for trait <- @traits do %>
+      <tr>
+        <td><%= trait.name %></td>
+        <td><%= species_link(@conn, trait.species) %></td>
+        <td><%= trait.inheritance %></td>
 
-      <td>
-        <span><%= link "Show", to: Routes.trait_path(@conn, :show, trait) %></span>
-        <span><%= link "Edit", to: Routes.trait_path(@conn, :edit, trait) %></span>
-        <span><%= link "Delete", to: Routes.trait_path(@conn, :delete, trait), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
+        <td>
+          <span><%= link "Show", to: Routes.trait_path(@conn, :show, trait) %></span>
+          <span><%= link "Edit", to: Routes.trait_path(@conn, :edit, trait) %></span>
+          <span><%= link("Delete", to: Routes.trait_path(@conn, :delete, trait),
+                method: :delete, data: [confirm: "Are you sure?"]) %></span>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
