@@ -40,6 +40,7 @@ defmodule Snekinfo.Snakes.Snake do
     |> put_assoc(:traits, traits)
     |> validate_required([:name, :sex, :born])
     |> validate_inclusion(:sex, sexes())
+    |> unique_constraint(:name)
   end
 
   def validate_trait_species(cset, traits) do
