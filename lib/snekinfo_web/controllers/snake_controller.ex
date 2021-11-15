@@ -10,7 +10,7 @@ defmodule SnekinfoWeb.SnakeController do
   alias Snekinfo.Taxa
 
   def index(conn, _params) do
-    snakes = Snakes.list_snakes()
+    snakes = Snakes.list_snakes_for_table()
     render(conn, "index.html", snakes: snakes)
   end
 

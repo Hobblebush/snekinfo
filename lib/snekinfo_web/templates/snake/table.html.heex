@@ -7,6 +7,8 @@
       <th>Species</th>
       <th>Sex</th>
       <th>Born</th>
+      <th>Weight</th>
+      <th>Last Fed</th>
       <%= unless assigns[:hide_litter] do %>
         <th>Litter</th>
       <% end %>
@@ -23,6 +25,8 @@
         <td><%= species_link(@conn, snake.species) %></td>
         <td><%= snake.sex %></td>
         <td class="pretty-date"><%= snake.born %></td>
+        <td><%= try_get(Enum.at(snake.weights, 0), :weight) %></td>
+        <td class="pretty-date"><%= try_get(Enum.at(snake.feeds, 0), [:date]) %></td>
         <%= unless assigns[:hide_litter] do %>
           <td><%= litter_link(@conn, snake.litter) %></td>
         <% end %>
