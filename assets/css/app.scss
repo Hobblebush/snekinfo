@@ -1,6 +1,18 @@
 @import "bootstrap/scss/bootstrap";
 @import "flatpickr/dist/themes/airbnb";
 
+/*** App Styles ***/
+
+.trait-badge {
+  padding: 7px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+};
+
+.trait-badge a {
+  color: white;
+}
+
 /*** Default Phoenix Styles ***/
 
 /* Alerts and form errors used by phx.new */

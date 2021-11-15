@@ -79,4 +79,11 @@ defmodule SnekinfoWeb.ViewHelpers do
     |> Enum.at(0)
     |> link(to: Routes.species_path(conn, :show, species))
   end
+
+  def traits_to_json(traits) do
+    Enum.map(traits, fn trait ->
+      SnekinfoWeb.TraitView.render("trait.json", %{trait: trait})
+    end)
+    |> Jason.encode!(pretty: true)
+  end
 end
