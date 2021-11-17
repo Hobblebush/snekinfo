@@ -36,10 +36,14 @@
   </div>
 
   <div class="mb-3">
-    <%= label f, :traits %>
-    <%= multi_select(f, :traits, Enum.map(@traits, &trait_option/1),
-      Enum.map(@snake_traits, &(&1.id)), class: "form-control") %>
-    <%= error_tag f, :traits %>
+    <div id="trait-container">
+      <%= label f, :traits %>
+      <%= multi_select(f, :traits, Enum.map(@traits, &trait_option/1),
+        Enum.map(@snake_traits, &(&1.id)), class: "form-control") %>
+      <%= error_tag f, :traits %>
+    </div>
+    <div id="trait-root">
+    </div>
   </div>
 
   <div class="mb-3">
@@ -59,3 +63,11 @@
     <%= submit "Save", class: "btn btn-primary" %>
   </div>
 </.form>
+
+<script>
+ if (!window.snekinfo) {
+   window.snekinfo = {};
+ }
+
+ window.snekinfo.traits = <%= raw traits_to_json(@traits) %>;
+</script>

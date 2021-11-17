@@ -38,3 +38,4 @@ window.liveSocket = liveSocket;
 
 import './datetime-inputs';
 import './pretty-dates';
+import './snake-form';
