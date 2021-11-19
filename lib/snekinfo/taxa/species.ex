@@ -19,5 +19,6 @@ defmodule Snekinfo.Taxa.Species do
     species
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> unique_constraint(:name)
   end
 end

@@ -4,17 +4,12 @@ defmodule Snekinfo.TaxaFixtures do
   entities via the `Snekinfo.Taxa` context.
   """
 
+  alias Snekinfo.Taxa
+
   @doc """
   Generate a species.
   """
   def species_fixture(attrs \\ %{}) do
-    {:ok, species} =
-      attrs
-      |> Enum.into(%{
-        name: "Pigmy Alligator"
-      })
-      |> Snekinfo.Taxa.create_species()
-
-    species
+    Taxa.get_or_create_species("Pigmy Alligator")
   end
 end

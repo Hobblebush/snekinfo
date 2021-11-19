@@ -81,6 +81,16 @@ defmodule SnekinfoWeb.LitterControllerTest do
     end
   end
 
+  describe "show litter" do
+    test "when litter has snake", %{conn: conn} do
+      litter = litter_fixture()
+      _snake = SnakesFixtures.snake_fixture(name: "Billy", litter_id: litter.id)
+
+      conn = get(conn, Routes.litter_path(conn, :show, litter))
+      assert html_response(conn, 200)
+    end
+  end
+
   defp create_litter(_) do
     litter = litter_fixture()
     %{litter: litter}
