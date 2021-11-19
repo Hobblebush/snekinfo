@@ -1,16 +1,3 @@
 
-Features to build:
-
- - Show snakes that haven't been fed (/feeds? dashboard?)
- - Feeds: Maybe have categories to imply weight rather than entering exact weight
-   in grams.
- - Snake event calendar:
-   * Continuous; week rows day columns
-   * Show feeds/weights/sheds/poops for one snake
- - feed/form & weight form: make snake a search box
-
 Requests 2021-11-07:
 
- - Sort traits so that het then possible het (ph) come last
- - Separated snakes into holdback, sales, and sold lists, with check box?
- - Add price to sales/sold snakes
