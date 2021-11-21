@@ -3,6 +3,22 @@
 
 Here's how to deploy updates to an already working production server.
 
+## Automated deploy.
+
+If everything is working, you should be able to deploy with one
+command:
+
+```
+$ scripts/deploy.sh
+```
+
+Before using this, you'll want
+
+ - SSH key authentication set up for the app user.
+ - Passwordless "sudo service snekinfo restart" enabled for the app user.
+
+# Manual Deploy
+
 ## Build the release
 
 On your local development machine, from the top level project directory, run the
