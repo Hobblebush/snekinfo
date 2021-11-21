@@ -59,7 +59,8 @@ defmodule Snekinfo.Litters do
   """
   def get_litter!(id) do
     lit = Repo.get!(Litter, id)
-    |> Repo.preload([:mother, :father, snakes: :traits])
+    |> Repo.preload([:mother, :father])
+    |> preload_snake_info()
 
     %Litter{ lit | size: length(lit.snakes), mf_ratio: mf_ratio(lit) }
   end
@@ -72,6 +73,12 @@ defmodule Snekinfo.Litters do
     else
       nil
     end
+  end
+
+  def preload_snake_info(lit) do
+    snakes = Snekinfo.Snakes.list_snakes_for_table()
+    |> Enum.filter(&(&1.litter_id == lit.id))
+    %Litter{ lit | snakes: snakes }
   end
 
   @doc """
