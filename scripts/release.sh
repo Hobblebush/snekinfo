@@ -8,7 +8,7 @@ if [[ ! -f _build/sass ]]; then
     mix sass.install
 fi
 mix assets.deploy
-mix release
+mix release --overwrite
 
 cp -r scripts _build/prod/rel/snekinfo
 
