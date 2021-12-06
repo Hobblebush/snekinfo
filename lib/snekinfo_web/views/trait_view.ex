@@ -15,6 +15,7 @@ defmodule SnekinfoWeb.TraitView do
       name: trait.name,
       inheritance: trait.inheritance,
       species_id: trait.species_id,
+      path: Routes.trait_path(SnekinfoWeb.Endpoint, :show, trait),
     }
   end
 end

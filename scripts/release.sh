@@ -7,6 +7,7 @@ mix compile
 if [[ ! -f _build/sass ]]; then
     mix sass.install
 fi
+(cd assets && yarn)
 mix assets.deploy
 mix release --overwrite
 

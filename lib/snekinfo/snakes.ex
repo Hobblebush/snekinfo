@@ -28,8 +28,9 @@ defmodule Snekinfo.Snakes do
       inner_join: species in assoc(sn, :species),
       left_join: feeds in assoc(sn, :feeds),
       left_lateral_join: latest_feed in subquery(
-        from Feed,
+        from feed in Feed,
         where: [snake_id: parent_as(:snake).id],
+        where: feed.ingested?,
         order_by: {:desc, :date},
         limit: 1
       ), on: latest_feed.id == feeds.id,
@@ -42,6 +43,7 @@ defmodule Snekinfo.Snakes do
       ), on: latest_weight.id == weights.id,
       left_join: litter in assoc(sn, :litter),
       left_join: mother in assoc(litter, :mother),
+      order_by: {:asc, :name},
       preload: [feeds: feeds, weights: weights, species: species,
                 litter: {litter, [mother: mother]}]
     )
