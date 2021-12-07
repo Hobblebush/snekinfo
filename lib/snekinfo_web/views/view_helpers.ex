@@ -2,6 +2,8 @@ defmodule SnekinfoWeb.ViewHelpers do
   use Phoenix.HTML
   alias SnekinfoWeb.Router.Helpers, as: Routes
 
+  import Phoenix.View
+
   def snake_link(_conn, nil), do: "∅"
   def snake_link(conn, snake) do
     if Ecto.assoc_loaded?(snake) do
@@ -27,14 +29,20 @@ defmodule SnekinfoWeb.ViewHelpers do
     end
   end
 
-  def litter_link(_conn, nil), do: "∅"
-  def litter_link(_conn, %Ecto.Association.NotLoaded{}), do: "??"
-  def litter_link(conn, litter) do
-    text = if Ecto.assoc_loaded?(litter.mother) do
+  def litter_name(nil), do: "∅"
+  def litter_name(%Ecto.Association.NotLoaded{}), do: "??"
+  def litter_name(litter) do
+    if Ecto.assoc_loaded?(litter.mother) do
       "#{to_string(litter.born)} #{litter.mother.name}"
     else
       "BUG: ASSOC MOTHER NOT LOADED"
     end
+  end
+
+  def litter_link(_conn, nil), do: "∅"
+  def litter_link(_conn, %Ecto.Association.NotLoaded{}), do: "??"
+  def litter_link(conn, litter) do
+    text = litter_name(litter)
     link(text, to: Routes.litter_path(conn, :show, litter))
   end
 
@@ -85,5 +93,35 @@ defmodule SnekinfoWeb.ViewHelpers do
       SnekinfoWeb.TraitView.render("trait.json", %{trait: trait})
     end)
     |> Jason.encode!(pretty: true)
+  end
+
+  def render_assoc(item, slug) do
+    text = to_string(slug)
+    view = String.to_atom("Elixir.SnekinfoWeb.#{String.capitalize(text)}View")
+    template = "#{text}.json"
+    if Ecto.assoc_loaded?(item) do
+      render_one(item, view, template)
+    else
+      nil
+    end
+  end
+
+  def render_assocs(items, slug) do
+    text = to_string(slug)
+    view = String.to_atom("Elixir.SnekinfoWeb.#{String.capitalize(text)}View")
+    template = "#{text}.json"
+    if Ecto.assoc_loaded?(items) do
+      render_many(items, view, template)
+    else
+      nil
+    end
+  end
+
+  def assoc_field(item, field) do
+    if !is_nil(item) && Ecto.assoc_loaded?(item) do
+      Map.get(item, field)
+    else
+      nil
+    end
   end
 end

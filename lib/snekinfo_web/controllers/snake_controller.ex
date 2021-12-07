@@ -11,7 +11,11 @@ defmodule SnekinfoWeb.SnakeController do
 
   def index(conn, _params) do
     snakes = Snakes.list_snakes_for_table()
-    render(conn, "index.html", snakes: snakes)
+    snakes_json = Jason.encode!(
+      SnekinfoWeb.SnakeView.to_data(snakes),
+      pretty: true
+    )
+    render(conn, "index.html", snakes: snakes, snakes_json: snakes_json)
   end
 
   def new(conn, params) do
