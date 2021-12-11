@@ -94,7 +94,7 @@ function Traits({field, val0, spc0}) {
           </select>
         </div>
         <div className="col-sm-4">
-          <button className="btn btn-secondary" onClick={add_trait}>Add Trait</button>
+          <a className="btn btn-secondary" href="#" onClick={add_trait}>Add Trait</a>
         </div>
       </div>
     </div>
