@@ -7,8 +7,6 @@ defmodule Snekinfo.Snakes do
   alias Snekinfo.Repo
 
   alias Snekinfo.Snakes.Snake
-  alias Snekinfo.Feeds.Feed
-  alias Snekinfo.Weights.Weight
 
   @doc """
   Returns the list of snakes.
@@ -24,23 +22,10 @@ defmodule Snekinfo.Snakes do
   end
 
   def list_snakes_for_table do
-    Repo.all(from sn in Snake, as: :snake,
+    Repo.all(from sn in Snake,
       inner_join: species in assoc(sn, :species),
       left_join: feeds in assoc(sn, :feeds),
-      left_lateral_join: latest_feed in subquery(
-        from feed in Feed,
-        where: [snake_id: parent_as(:snake).id],
-        where: feed.ingested?,
-        order_by: {:desc, :date},
-        limit: 1
-      ), on: latest_feed.id == feeds.id,
       left_join: weights in assoc(sn, :weights),
-      left_lateral_join: latest_weight in subquery(
-        from Weight,
-        where: [snake_id: parent_as(:snake).id],
-        order_by: {:desc, :date},
-        limit: 1
-      ), on: latest_weight.id == weights.id,
       left_join: litter in assoc(sn, :litter),
       left_join: mother in assoc(litter, :mother),
       order_by: {:asc, :name},
@@ -48,6 +33,13 @@ defmodule Snekinfo.Snakes do
                 litter: {litter, [mother: mother]}]
     )
     |> Repo.preload([:traits])
+    |> Enum.map(&take_latest_data/1)
+  end
+
+  def take_latest_data(snake) do
+    fs = Enum.sort_by(snake.feeds, &(&1.date))
+    ws = Enum.sort_by(snake.weights, &(&1.date))
+    %Snake{ snake | feeds: fs, weights: ws }
   end
 
   @doc """
