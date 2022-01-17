@@ -18,6 +18,12 @@
   </div>
 
   <div class="mb-3">
+    <%= label f, :status %>
+    <%= select f, :status, Snekinfo.Snakes.Snake.statuses(), class: "form-control" %>
+    <%= error_tag f, :status %>
+  </div>
+
+  <div class="mb-3">
     <%= label f, :sex %>
     <%= select f, :sex, Snekinfo.Snakes.Snake.sexes(), class: "form-control" %>
     <%= error_tag f, :sex %>
@@ -58,6 +64,18 @@
     <%= error_tag f, :cost %>
   </div>
 
+  <div class="mb-3">
+    <%= label f, :price %>
+    <%= number_input f, :price, class: "form-control", step: "0.01" %>
+    <%= error_tag f, :price %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :notes %>
+    <div class="form-text">(Markdown)</div>
+    <%= textarea f, :notes, class: "form-control" %>
+    <%= error_tag f, :cost %>
+  </div>
 
   <div class="mb-3">
     <%= submit "Save", class: "btn btn-primary" %>

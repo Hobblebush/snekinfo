@@ -14,6 +14,9 @@ defmodule Snekinfo.Snakes.Snake do
     field :sex, :string
     field :produced_by, :string
     field :cost, :decimal
+    field :status, :string
+    field :price, :decimal
+    field :notes, :string
 
     belongs_to :litter, Litter
     belongs_to :species, Species
@@ -30,16 +33,32 @@ defmodule Snekinfo.Snakes.Snake do
     ["∅", "F", "M"]
   end
 
+  def statuses do
+    ["keep", "sell", "dead", "gone"]
+  end
+
+  def active_statuses do
+    ["keep", "sell"]
+  end
+
+  def active_status?(status) do
+    status in active_statuses()
+  end
+
   @doc false
   def changeset(snake, attrs) do
     traits = attrs["traits"] || attrs[:traits] || []
 
     snake
-    |> cast(attrs, [:litter_id, :name, :sex, :born, :produced_by, :cost, :species_id])
+    |> cast(attrs, [
+          :litter_id, :name, :sex, :born, :produced_by, :cost, :species_id,
+          :status, :price, :notes
+        ])
     |> validate_trait_species(traits)
     |> put_assoc(:traits, traits)
     |> validate_required([:name, :sex, :born])
     |> validate_inclusion(:sex, sexes())
+    |> validate_inclusion(:status, statuses())
     |> unique_constraint(:name)
   end
 

@@ -12,6 +12,16 @@
   </li>
 
   <li>
+    <strong>Active:</strong>
+    <%= snake_active?(@snake) %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @snake.status %>
+  </li>
+
+  <li>
     <strong>Species:</strong>
     <%= species_link(@conn, @snake.species) %>
   </li>
@@ -38,16 +48,20 @@
     <%= trait_links(@conn, @snake.traits) %>
   </li>
 
-   <li>
+  <li>
     <strong>Produced By:</strong>
     <%= @snake.produced_by %>
   </li>
 
-   <li>
+  <li>
     <strong>Cost:</strong>
     <%= @snake.cost %>
   </li>
 
+  <li>
+    <strong>Price:</strong>
+    <%= @snake.price || "∅" %>
+  </li>
 </ul>
 
 
@@ -59,7 +73,7 @@
       <%= link("All Feeds", to: Routes.snake_feed_path(@conn, :index, @snake)) %>
     </p>
     <%= render(SnekinfoWeb.FeedView, "single_table.html",
-               Map.put(assigns, :feeds, @recent_feeds)) %>
+      Map.put(assigns, :feeds, @recent_feeds)) %>
   </div>
   <div class="col">
     <h2>Weights</h2>
@@ -68,7 +82,7 @@
       <%= link("All Weights", to: Routes.snake_weight_path(@conn, :index, @snake)) %>
     </p>
     <%= render(SnekinfoWeb.WeightView, "single_table.html",
-               Map.put(assigns, :weights, @recent_weights)) %>
+      Map.put(assigns, :weights, @recent_weights)) %>
   </div>
 </div>
 
@@ -76,7 +90,7 @@
   <div class="col">
     <h2>Litters</h2>
     <%= render(SnekinfoWeb.LitterView, "table.html",
-               Map.put(assigns, :litters, @snake_litters)) %>
+      Map.put(assigns, :litters, @snake_litters)) %>
   </div>
 </div>
 
@@ -87,3 +101,12 @@
        method: :delete, data: [confirm: "Are you sure?"]) %></p>
   </div>
 </div>
+
+<%= if @snake.notes do %>
+  <div class="row">
+    <div class="col">
+      <h2>Notes</h2>
+      <div class="markdown"><%= @snake.notes %></div>
+    </div>
+  </div>
+<% end %>

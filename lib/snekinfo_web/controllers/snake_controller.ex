@@ -9,7 +9,7 @@ defmodule SnekinfoWeb.SnakeController do
   alias Snekinfo.Traits
   alias Snekinfo.Taxa
 
-  def index(conn, _params) do
+  def index(conn, params) do
     snakes = Snakes.list_snakes_for_table()
     snakes_json = Jason.encode!(
       SnekinfoWeb.SnakeView.to_data(snakes),
