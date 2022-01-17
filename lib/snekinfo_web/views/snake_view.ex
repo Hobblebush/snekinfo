@@ -21,6 +21,8 @@ defmodule SnekinfoWeb.SnakeView do
       traits: render_assocs(snake.traits, :trait),
       updated_at: snake.updated_at,
       weights: render_assocs(snake.weights, :weight),
+      status: snake.status,
+      active: snake_active?(snake),
       path: Routes.snake_path(SnekinfoWeb.Endpoint, :show, snake),
     }
   end

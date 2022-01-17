@@ -12,12 +12,13 @@ function SnakesTable({snakes}) {
   const [conf, setConf] = useState({
     sorting: ['name', 'species', 'weight'],
     filters: {},
+    activeOnly: true,
   });
 
   let controlsRow = (
     <ControlsRow key="controls" conf={conf} setConf={setConf} />
   );
-  let vizSnakes = snakes.filter((snake) => keepSnake(snake, conf.filters));
+  let vizSnakes = snakes.filter((snake) => keepSnake(snake, conf));
   let snakeRows = sortBy(vizSnakes, conf.sorting).map((snake) =>
     <SnakeRow snake={snake} key={snake.id} />);
   let rows = concat([controlsRow], snakeRows);
@@ -33,6 +34,7 @@ function SnakesTable({snakes}) {
           <th>Weight</th>
           <th>Last Fed</th>
           <th>Litter</th>
+          <th>Status</th>
           <th>Traits</th>
           <th>Edit</th>
         </tr>
@@ -44,7 +46,10 @@ function SnakesTable({snakes}) {
   );
 }
 
-function keepSnake(snake, filters) {
+function keepSnake(snake, {filters, activeOnly}) {
+  if (activeOnly && !snake.active) {
+    return false;
+  }
   for (const [kk, vv] of Object.entries(filters)) {
     if (!snake[kk].toLowerCase().includes(vv.toLowerCase())) {
       return false;
@@ -86,6 +91,11 @@ function ControlsRow({conf, setConf}) {
       let conf1 = setIn(conf, ['sorting'], ys);
       setConf(conf1);
     };
+  }
+
+  function setActiveOnly(ev) {
+    let conf1 = setIn(conf, ['activeOnly'], ev.target.checked);
+    setConf(conf1);
   }
 
   return (
@@ -140,6 +150,11 @@ function ControlsRow({conf, setConf}) {
         </Button>
       </td>
       <td>
+        Active?
+        <Form.Switch checked={conf.activeOnly}
+                     onChange={setActiveOnly} />
+      </td>
+      <td>
         <Row>
           <Col sm={6}>
             <Form.Control id="control-input-name"
@@ -192,6 +207,7 @@ function SnakeRow({snake}) {
       <td>{weight_link}</td>
       <td>{feeds_link}</td>
       <td>{litter_link}</td>
+      <td>{snake.status}</td>
       <td>{traits_links}</td>
       <td><a href={snake.path+"/edit"}>Edit</a></td>
     </tr>

@@ -22,6 +22,10 @@ defmodule Snekinfo.Snakes do
   end
 
   def list_snakes_for_table do
+    list_snakes_for_table(Snake.statuses())
+  end
+
+  def list_snakes_for_table(statuses) do
     Repo.all(from sn in Snake,
       inner_join: species in assoc(sn, :species),
       left_join: feeds in assoc(sn, :feeds),
@@ -29,6 +33,7 @@ defmodule Snekinfo.Snakes do
       left_join: litter in assoc(sn, :litter),
       left_join: mother in assoc(litter, :mother),
       order_by: {:asc, :name},
+      where: sn.status in ^statuses,
       preload: [feeds: feeds, weights: weights, species: species,
                 litter: {litter, [mother: mother]}]
     )

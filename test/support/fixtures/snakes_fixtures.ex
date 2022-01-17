@@ -17,6 +17,7 @@ defmodule Snekinfo.SnakesFixtures do
         name: "Alex",
         sex: "F",
         traits: [],
+        status: "keep",
         species_id: sp.id,
       })
       |> Snekinfo.Snakes.create_snake()

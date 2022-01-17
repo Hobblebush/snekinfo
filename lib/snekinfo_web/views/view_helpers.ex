@@ -2,6 +2,8 @@ defmodule SnekinfoWeb.ViewHelpers do
   use Phoenix.HTML
   alias SnekinfoWeb.Router.Helpers, as: Routes
 
+  alias Snekinfo.Snakes.Snake
+
   import Phoenix.View
 
   def snake_link(_conn, nil), do: "∅"
@@ -123,5 +125,9 @@ defmodule SnekinfoWeb.ViewHelpers do
     else
       nil
     end
+  end
+
+  def snake_active?(snake) do
+    Snake.active_status?(snake.status)
   end
 end

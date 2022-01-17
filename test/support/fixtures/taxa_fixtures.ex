@@ -9,7 +9,7 @@ defmodule Snekinfo.TaxaFixtures do
   @doc """
   Generate a species.
   """
-  def species_fixture(attrs \\ %{}) do
+  def species_fixture(_attrs \\ %{}) do
     Taxa.get_or_create_species("Pigmy Alligator")
   end
 end
