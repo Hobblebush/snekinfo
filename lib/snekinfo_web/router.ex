@@ -21,6 +21,7 @@ defmodule SnekinfoWeb.Router do
     resources "/snakes", SnakeController do
       resources "/feeds", FeedController, only: [:index, :new]
       resources "/weights", WeightController, only: [:index, :new]
+      resources "/photos", PhotoController, only: [:index, :new, :create]
     end
     resources "/litters", LitterController do
       resources "/snakes", SnakeController, only: [:new]
@@ -31,6 +32,9 @@ defmodule SnekinfoWeb.Router do
     resources "/species", SpeciesController do
       resources "/snakes", SnakeController, only: [:index, :new]
     end
+    resources "/photos", PhotoController, except: [:index, :new, :create]
+    get "/photos/:id/raw", PhotoController, :raw
+    get "/photos/:id/thumb", PhotoController, :thumb
   end
 
   # Other scopes may use custom stacks.

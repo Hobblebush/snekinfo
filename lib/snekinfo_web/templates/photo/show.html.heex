@@ -1,0 +1,29 @@
+<h1>Show Photo</h1>
+
+<div>
+  <%= link(
+    img_tag(Routes.photo_path(@conn, :raw, @photo), class: "photo-image"),
+    to: Routes.photo_path(@conn, :raw, @photo)
+  ) %>
+</div>
+
+<ul>
+  <li>
+    <strong>Filename:</strong>
+    <%= @photo.filename %>
+  </li>
+
+  <li>
+    <strong>Caption:</strong>
+    <%= @photo.caption %>
+  </li>
+
+  <li>
+    <strong>Order:</strong>
+    <%= @photo.order %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.photo_path(@conn, :edit, @photo) %></span> |
+<span><%= link "Back", to: Routes.snake_photo_path(@conn, :index, @snake) %></span>

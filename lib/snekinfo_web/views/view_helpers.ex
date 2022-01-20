@@ -3,6 +3,7 @@ defmodule SnekinfoWeb.ViewHelpers do
   alias SnekinfoWeb.Router.Helpers, as: Routes
 
   alias Snekinfo.Snakes.Snake
+  alias Snekinfo.Photos.Photo
 
   import Phoenix.View
 
@@ -129,5 +130,19 @@ defmodule SnekinfoWeb.ViewHelpers do
 
   def snake_active?(snake) do
     Snake.active_status?(snake.status)
+  end
+
+  def photo_image(conn, nil) do
+    photo_thumb(conn, nil)
+  end
+  def photo_image(conn, %Photo{} = photo) do
+    Routes.photo_path(conn, :raw, photo)
+  end
+
+  def photo_thumb(_conn, nil) do
+    "http://localhost:4000/images/generic-snake.jpg"
+  end
+  def photo_thumb(conn, %Photo{} = photo) do
+    Routes.photo_path(conn, :thumb, photo)
   end
 end

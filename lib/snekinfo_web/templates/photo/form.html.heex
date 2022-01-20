@@ -1,0 +1,29 @@
+<.form let={f} for={@changeset} action={@action} multipart={true}>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group my-1">
+    <%= label f, :upload %>
+    <%= file_input f, :upload, class: "form-control" %>
+    <%= error_tag f, :upload %>
+  </div>
+
+  <div class="form-group my-1">
+    <%= label f, :caption %>
+    <%= text_input f, :caption, class: "form-control" %>
+    <%= error_tag f, :caption %>
+  </div>
+
+  <div class="form-group my-1">
+    <%= label f, :order %>
+    <%= number_input f, :order, class: "form-control" %>
+    <%= error_tag f, :order %>
+  </div>
+
+  <div class="my-2">
+    <%= submit "Save", class: "btn btn-primary" %>
+  </div>
+</.form>

@@ -1,0 +1,25 @@
+<h1>Photos for <%= @snake.name %></h1>
+
+<p>
+  <%= link("Show Snake", to: Routes.snake_path(@conn, :show, @snake)) %> |
+  <%= link("New Photo", to: Routes.snake_photo_path(@conn, :new, @snake)) %>
+</p>
+
+<div class="row">
+  <%= for photo <- @photos do %>
+    <div class="col-md-3">
+      <%= link(
+        img_tag(Routes.photo_path(@conn, :thumb, photo), class: "photo-image"),
+        to: Routes.photo_path(@conn, :show, photo)
+      ) %>
+      <p>File Name: <%= photo.filename %></p>
+      <p>Caption: <%= photo.caption %></p>
+      <p>Sort Order: <%= photo.order %></p>
+      <p>
+        <span><%= link "Show", to: Routes.photo_path(@conn, :show, photo) %></span>
+        <span><%= link "Edit", to: Routes.photo_path(@conn, :edit, photo) %></span>
+        <span><%= link "Delete", to: Routes.photo_path(@conn, :delete, photo), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </p>
+    </div>
+  <% end %>
+</div>
