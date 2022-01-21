@@ -5,64 +5,72 @@
   <span><%= link "Back", to: Routes.snake_path(@conn, :index) %></span>
 </p>
 
-<ul>
-  <li>
-    <strong>Name:</strong>
-    <%= @snake.name %>
-  </li>
+<div class="row">
+  <div class="col-md-6">
+    <ul>
+      <li>
+        <strong>Name:</strong>
+        <%= @snake.name %>
+      </li>
 
-  <li>
-    <strong>Active:</strong>
-    <%= snake_active?(@snake) %>
-  </li>
+      <li>
+        <strong>Active:</strong>
+        <%= snake_active?(@snake) %>
+      </li>
 
-  <li>
-    <strong>Status:</strong>
-    <%= @snake.status %>
-  </li>
+      <li>
+        <strong>Status:</strong>
+        <%= @snake.status %>
+      </li>
 
-  <li>
-    <strong>Species:</strong>
-    <%= species_link(@conn, @snake.species) %>
-  </li>
+      <li>
+        <strong>Species:</strong>
+        <%= species_link(@conn, @snake.species) %>
+      </li>
 
-  <li>
-    <strong>Sex:</strong>
-    <%= @snake.sex %>
-  </li>
+      <li>
+        <strong>Sex:</strong>
+        <%= @snake.sex %>
+      </li>
 
-  <li>
-    <strong>Born:</strong>
-    <span class="pretty-date">
-      <%= @snake.born %>
-    </span>
-  </li>
+      <li>
+        <strong>Born:</strong>
+        <span class="pretty-date">
+          <%= @snake.born %>
+        </span>
+      </li>
 
-  <li>
-    <strong>Litter:</strong>
-    <%= litter_link(@conn, @snake.litter) %>
-  </li>
+      <li>
+        <strong>Litter:</strong>
+        <%= litter_link(@conn, @snake.litter) %>
+      </li>
 
-  <li>
-    <strong>Traits:</strong>
-    <%= trait_links(@conn, @snake.traits) %>
-  </li>
+      <li>
+        <strong>Traits:</strong>
+        <%= trait_links(@conn, @snake.traits) %>
+      </li>
 
-  <li>
-    <strong>Produced By:</strong>
-    <%= @snake.produced_by %>
-  </li>
+      <li>
+        <strong>Produced By:</strong>
+        <%= @snake.produced_by %>
+      </li>
 
-  <li>
-    <strong>Cost:</strong>
-    <%= @snake.cost %>
-  </li>
+      <li>
+        <strong>Cost:</strong>
+        <%= @snake.cost %>
+      </li>
 
-  <li>
-    <strong>Price:</strong>
-    <%= @snake.price || "∅" %>
-  </li>
-</ul>
+      <li>
+        <strong>Price:</strong>
+        <%= @snake.price || "∅" %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <%= img_tag(photo_thumb(@conn, @photo)) %>
+    <p><%= link("List Photos", to: Routes.snake_photo_path(@conn, :index, @snake)) %></p>
+  </div>
+</div>
 
 
 <div class="row">
