@@ -7,6 +7,7 @@ defmodule Snekinfo.PhotosTest do
     alias Snekinfo.Photos.Photo
 
     import Snekinfo.PhotosFixtures
+    import Snekinfo.SnakesFixtures
 
     @invalid_attrs %{caption: nil, filename: nil, order: nil}
 
@@ -21,11 +22,18 @@ defmodule Snekinfo.PhotosTest do
     end
 
     test "create_photo/1 with valid data creates a photo" do
-      valid_attrs = %{caption: "some caption", filename: "some filename", order: 42}
+      snake = snake_fixture()
+      upload = upload_fixture()
+      valid_attrs = %{
+        snake_id: snake.id,
+        caption: "some caption",
+        order: 42,
+        upload: upload
+      }
 
       assert {:ok, %Photo{} = photo} = Photos.create_photo(valid_attrs)
       assert photo.caption == "some caption"
-      assert photo.filename == "some filename"
+      assert photo.filename == "sample-photo.jpg"
       assert photo.order == 42
     end
 

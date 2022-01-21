@@ -14,7 +14,7 @@ defmodule Snekinfo.Photos.Photo do
   end
 
   @doc false
-  def changeset(photo, attrs) do
+  def changeset(%Photo{} = photo, attrs) do
     photo
     |> cast(attrs, [:filename, :caption, :order, :snake_id])
     |> put_filename(attrs)
@@ -23,6 +23,9 @@ defmodule Snekinfo.Photos.Photo do
 
   def put_filename(cset, %{"upload" => upload}) do
     put_change(cset, :filename, upload.filename)
+  end
+  def put_filename(cset, %{upload: upload}) do
+    put_filename(cset, %{"upload" => upload})
   end
   def put_filename(cset, _attrs) do
     cset

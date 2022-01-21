@@ -10,7 +10,11 @@ defmodule Snekinfo.Photos.Upload do
   end
   def photo_dir(snake_id) do
     sn = String.pad_leading("#{snake_id}", 4, "0")
-    Path.expand("~/.local/data/snekinfo/photos/#{sn}")
+    if Application.get_env(:snekinfo, :config_env) == :test do
+      "/tmp/snekinfo_test/photos/#{sn}"
+    else
+      Path.expand("~/.local/data/snekinfo/photos/#{sn}")
+    end
   end
 
   def photo_path(%Photo{} = photo) do
@@ -27,7 +31,7 @@ defmodule Snekinfo.Photos.Upload do
     Path.join(pdir, "#{numb}-512.jpg")
   end
 
-  def save_upload!(%Photo{} = photo, %{"upload" => upload} = attrs) do
+  def save_upload!(%Photo{} = photo, %{"upload" => upload}) do
     if jpeg?(upload.path) do
       File.copy!(upload.path, photo_path(photo))
       make_thumbnail!(photo)
@@ -45,8 +49,6 @@ defmodule Snekinfo.Photos.Upload do
   def delete_jpeg!(path) do
     if jpeg?(path) do
       File.rm!(path)
-    else
-      raise "That's not a JPEG"
     end
   end
 

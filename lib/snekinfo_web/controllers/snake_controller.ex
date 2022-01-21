@@ -9,9 +9,8 @@ defmodule SnekinfoWeb.SnakeController do
   alias Snekinfo.Traits
   alias Snekinfo.Taxa
   alias Snekinfo.Photos
-  alias Snekinfo.Photos.Photo
 
-  def index(conn, params) do
+  def index(conn, _params) do
     snakes = Snakes.list_snakes_for_table()
     snakes_json = Jason.encode!(
       SnekinfoWeb.SnakeView.to_data(snakes),
@@ -56,7 +55,6 @@ defmodule SnekinfoWeb.SnakeController do
     recent_weights = Weights.list_recent_weights_for_snake(snake, 10)
     snake_litters = Snakes.list_snake_litters(snake)
     photo = Photos.snake_main_photo(snake)
-    IO.inspect(photo)
     render(conn, "show.html", snake: snake, snake_litters: snake_litters,
       recent_feeds: recent_feeds, recent_weights: recent_weights, photo: photo)
   end

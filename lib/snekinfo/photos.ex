@@ -67,13 +67,20 @@ defmodule Snekinfo.Photos do
 
   """
   def create_photo(attrs \\ %{}) do
-    Repo.transaction fn ->
-      {:ok, photo} = %Photo{}
+    {:ok, rv} = Repo.transaction fn ->
+      rv = %Photo{}
       |> Photo.changeset(attrs)
       |> Repo.insert()
-      Upload.save_upload!(photo, attrs)
-      photo
+
+      case rv do
+        {:ok, photo} ->
+          Upload.save_upload!(photo, attrs)
+          {:ok, photo}
+        other ->
+          other
+      end
     end
+    rv
   end
 
   @doc """
@@ -89,13 +96,20 @@ defmodule Snekinfo.Photos do
 
   """
   def update_photo(%Photo{} = photo, attrs) do
-    Repo.transaction fn ->
-      {:ok, photo} = photo
+    {:ok, rv} = Repo.transaction fn ->
+      rv = photo
       |> Photo.changeset(attrs)
       |> Repo.update()
-      Upload.save_upload!(photo, attrs)
-      photo
+
+      case rv do
+        {:ok, photo} ->
+          Upload.save_upload!(photo, attrs)
+          {:ok, photo}
+        other ->
+          other
+      end
     end
+    rv
   end
 
   @doc """
