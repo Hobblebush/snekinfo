@@ -9,6 +9,7 @@ if [[ ! -f _build/sass ]]; then
 fi
 (cd assets && yarn)
 mix assets.deploy
+mix phx.digest
 mix release --overwrite
 
 cp -r scripts _build/prod/rel/snekinfo
