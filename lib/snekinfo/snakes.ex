@@ -42,7 +42,6 @@ defmodule Snekinfo.Snakes do
   end
 
   def take_latest_data(snake) do
-    snake
     fs = Enum.sort_by(snake.feeds, &(&1.date), {:desc, Date})
     ws = Enum.sort_by(snake.weights, &(&1.date), {:desc, Date})
     %Snake{ snake | feeds: fs, weights: ws }
