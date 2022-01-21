@@ -139,8 +139,9 @@ defmodule SnekinfoWeb.ViewHelpers do
     Routes.photo_path(conn, :raw, photo)
   end
 
-  def photo_thumb(_conn, nil) do
-    "http://localhost:4000/images/generic-snake.jpg"
+  def photo_thumb(conn, nil) do
+    img_tag(Routes.static_path(conn, "/images/generic-snake.jpg"),
+      alt: "generic-snake")
   end
   def photo_thumb(conn, %Photo{} = photo) do
     Routes.photo_path(conn, :thumb, photo)
