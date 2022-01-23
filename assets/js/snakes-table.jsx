@@ -203,9 +203,9 @@ function SnakeRow({snake}) {
       <td><a href={snake.path}>{snake.name}</a></td>
       <td>{species_link}</td>
       <td>{snake.sex}</td>
-      <td>{snake.born}</td>
-      <td>{weight_link}</td>
-      <td>{feeds_link}</td>
+      <td className="text-nowrap">{snake.born}</td>
+      <td className="text-nowrap">{weight_link}</td>
+      <td className="text-nowrap">{feeds_link}</td>
       <td>{litter_link}</td>
       <td>{snake.status}</td>
       <td>{traits_links}</td>
