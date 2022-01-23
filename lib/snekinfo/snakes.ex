@@ -34,18 +34,25 @@ defmodule Snekinfo.Snakes do
       left_join: mother in assoc(litter, :mother),
       order_by: {:asc, :name},
       where: sn.status in ^statuses,
-      where: feeds.ingested?,
       preload: [feeds: feeds, weights: weights, species: species,
                 litter: {litter, [mother: mother]}]
     )
     |> Repo.preload([:traits])
     |> Enum.map(&take_latest_data/1)
+    |> Enum.map(&drop_uneaten_feeds/1)
   end
 
   def take_latest_data(snake) do
     fs = Enum.sort_by(snake.feeds, &(&1.date), {:desc, Date})
     ws = Enum.sort_by(snake.weights, &(&1.date), {:desc, Date})
     %Snake{ snake | feeds: fs, weights: ws }
+  end
+
+  def drop_uneaten_feeds(snake) do
+    fs = Enum.filter snake.feeds, fn feed ->
+      feed.ingested?
+    end
+    %Snake{ snake | feeds: fs }
   end
 
   @doc """
