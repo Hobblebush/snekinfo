@@ -34,6 +34,7 @@ defmodule Snekinfo.Snakes do
       left_join: mother in assoc(litter, :mother),
       order_by: {:asc, :name},
       where: sn.status in ^statuses,
+      where: feeds.ingested?,
       preload: [feeds: feeds, weights: weights, species: species,
                 litter: {litter, [mother: mother]}]
     )
