@@ -1,0 +1,28 @@
+<h1>Listing Sheds</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Snake</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for shed <- @sheds do %>
+    <tr>
+      <td><%= shed.date %></td>
+      <td><%= snake_link(@conn, shed.snake) %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.shed_path(@conn, :show, shed) %></span>
+        <span><%= link "Edit", to: Routes.shed_path(@conn, :edit, shed) %></span>
+        <span><%= link "Delete", to: Routes.shed_path(@conn, :delete, shed), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Shed", to: Routes.shed_path(@conn, :new) %></span>

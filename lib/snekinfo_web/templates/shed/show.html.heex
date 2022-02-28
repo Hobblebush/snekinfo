@@ -1,0 +1,18 @@
+<h1>Show Shed</h1>
+
+<ul>
+
+  <li>
+    <strong>Snake:</strong>
+    <%= snake_link(@conn, @shed.snake) %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @shed.date %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.shed_path(@conn, :edit, @shed) %></span> |
+<span><%= link "Back", to: Routes.snake_shed_path(@conn, :index, @shed.snake) %></span>

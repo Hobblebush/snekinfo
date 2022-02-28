@@ -104,6 +104,12 @@
 
 <div class="row">
   <div class="col">
+    <h2>Sheds</h2>
+    <p><%= link "New Shed", to: Routes.snake_shed_path(@conn, :new, @snake) %></p>
+    <%= render(SnekinfoWeb.ShedView, "single_table.html",
+      Map.put(assigns, :sheds, @recent_sheds)) %>
+  </div>
+  <div class="col">
     <h2>Actions</h2>
     <p><%= link("Delete", to: Routes.snake_path(@conn, :delete, @snake),
        method: :delete, data: [confirm: "Are you sure?"]) %></p>

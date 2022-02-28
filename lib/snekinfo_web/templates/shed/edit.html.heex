@@ -1,0 +1,5 @@
+<h1>Edit Shed</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.shed_path(@conn, :update, @shed)) %>
+
+<span><%= link "Back", to: Routes.shed_path(@conn, :index) %></span>
