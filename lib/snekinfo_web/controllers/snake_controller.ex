@@ -5,6 +5,7 @@ defmodule SnekinfoWeb.SnakeController do
   alias Snekinfo.Snakes.Snake
   alias Snekinfo.Feeds
   alias Snekinfo.Weights
+  alias Snekinfo.Sheds
   alias Snekinfo.Litters
   alias Snekinfo.Traits
   alias Snekinfo.Taxa
@@ -53,10 +54,12 @@ defmodule SnekinfoWeb.SnakeController do
     snake = Snakes.get_snake!(id)
     recent_feeds = Feeds.list_recent_feeds_for_snake(snake, 10)
     recent_weights = Weights.list_recent_weights_for_snake(snake, 10)
+    recent_sheds = Sheds.list_recent_sheds_for_snake(snake, 10)
     snake_litters = Snakes.list_snake_litters(snake)
     photo = Photos.snake_main_photo(snake)
     render(conn, "show.html", snake: snake, snake_litters: snake_litters,
-      recent_feeds: recent_feeds, recent_weights: recent_weights, photo: photo)
+      recent_feeds: recent_feeds, recent_weights: recent_weights,
+      recent_sheds: recent_sheds, photo: photo)
   end
 
   def edit(conn, %{"id" => id}) do
