@@ -7,6 +7,39 @@ defmodule SnekinfoWeb.ViewHelpers do
 
   import Phoenix.View
 
+  def norm_path(xs) when is_list(xs) do
+    Enum.filter(xs, &(&1 =~ ~r/\w/))
+  end
+  def norm_path(text) do
+    norm_path(Path.split(text))
+  end
+
+  def same_path?(aa, bb) do
+    norm_path(aa) == norm_path(bb)
+  end
+
+  def nav_link(conn, text, path, opts) do
+    opts = Keyword.put(opts, :to, path)
+    if same_path?(conn.request_path, path) do
+      opts = Keyword.merge opts, [
+        class: "nav-link active",
+        "aria-current": "page",
+      ]
+      link(text, opts)
+    else
+      opts = Keyword.merge opts, [class: "nav-link"]
+      link(text, opts)
+    end
+  end
+
+  def nav_item(conn, text, path, opts) do
+    link = nav_link(conn, text, path, opts)
+    content_tag("li", link, class: "nav-item")
+  end
+  def nav_item(conn, text, path) do
+    nav_item(conn, text, path, [])
+  end
+
   def snake_link(_conn, nil), do: "∅"
   def snake_link(conn, snake) do
     if Ecto.assoc_loaded?(snake) do

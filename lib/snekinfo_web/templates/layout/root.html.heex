@@ -24,26 +24,13 @@
 
           <div class="collapse navbar-collapse" id="navtoggle">
             <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <%= link("Snakes", to: Routes.snake_path(@conn, :index),
-                  class: "nav-link") %>
-              </li>
-              <li>
-                <%= link("Litters", to: Routes.litter_path(@conn, :index),
-                  class: "nav-link") %>
-              </li>
-              <li class="nav-item">
-                <%= link("Species", to: Routes.species_path(@conn, :index),
-                  class: "nav-link") %>
-              </li>
-              <li class="nav-item">
-                <%= link("Traits", to: Routes.trait_path(@conn, :index),
-                  class: "nav-link") %>
-              </li>
+              <%= nav_item(@conn, "Home", "/") %>
+              <%= nav_item(@conn, "Snakes", Routes.snake_path(@conn, :index)) %>
+              <%= nav_item(@conn, "Litters", Routes.litter_path(@conn, :index)) %>
+              <%= nav_item(@conn, "Species", Routes.species_path(@conn, :index)) %>
+              <%= nav_item(@conn, "Traits", Routes.trait_path(@conn, :index)) %>
             </ul>
+            <%= render "_user_menu.html", assigns %>
           </div>
         </div>
       </nav>
