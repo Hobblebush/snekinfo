@@ -9,6 +9,8 @@ defmodule SnekinfoWeb.FeedControllerTest do
   @invalid_attrs %{ingested?: true, live?: true, timestamp: "goat", weight: -7.2}
 
   describe "index" do
+    setup [:log_as_staff]
+
     test "lists all feeds", %{conn: conn} do
       conn = get(conn, Routes.feed_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Feeds"
@@ -16,6 +18,8 @@ defmodule SnekinfoWeb.FeedControllerTest do
   end
 
   describe "new feed" do
+    setup [:log_as_staff]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.feed_path(conn, :new))
       assert html_response(conn, 200) =~ "New Feed"
@@ -23,6 +27,8 @@ defmodule SnekinfoWeb.FeedControllerTest do
   end
 
   describe "create feed" do
+    setup [:log_as_staff]
+
     test "redirects to show when data is valid", %{conn: conn} do
       snake = SnakesFixtures.snake_fixture()
       feed_attrs = Map.put(@create_attrs, :snake_id, snake.id)
@@ -43,7 +49,7 @@ defmodule SnekinfoWeb.FeedControllerTest do
   end
 
   describe "edit feed" do
-    setup [:create_feed]
+    setup [:create_feed, :log_as_staff]
 
     test "renders form for editing chosen feed", %{conn: conn, feed: feed} do
       conn = get(conn, Routes.feed_path(conn, :edit, feed))
@@ -52,7 +58,7 @@ defmodule SnekinfoWeb.FeedControllerTest do
   end
 
   describe "update feed" do
-    setup [:create_feed]
+    setup [:create_feed, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, feed: feed} do
       conn = put(conn, Routes.feed_path(conn, :update, feed), feed: @update_attrs)
@@ -69,7 +75,7 @@ defmodule SnekinfoWeb.FeedControllerTest do
   end
 
   describe "delete feed" do
-    setup [:create_feed]
+    setup [:create_feed, :log_as_staff]
 
     test "deletes chosen feed", %{conn: conn, feed: feed} do
       conn = delete(conn, Routes.feed_path(conn, :delete, feed))

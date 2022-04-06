@@ -135,8 +135,18 @@ defmodule SnekinfoWeb.UserAuthTest do
       assert get_flash(conn, :error) == "You must be authorized to access this page."
     end
 
-    test "does not redirect if user is staff", %{conn: conn, user: user} do
-      conn = conn |> assign(:current_user, user) |> UserAuth.require_authenticated_user([])
+    test "redirects if user is not staff", %{conn: conn, user: user} do
+      conn = conn |> fetch_flash()
+      |> assign(:current_user, user) |> UserAuth.require_authenticated_staff([])
+      assert conn.halted
+      assert redirected_to(conn) == "/"
+      assert get_flash(conn, :error) == "You must be authorized to access this page."
+    end
+
+    test "does not redirect if user is staff", %{conn: conn, staff: staff} do
+      assert staff.staff?
+      conn = conn |> fetch_flash()
+      |> assign(:current_user, staff) |> UserAuth.require_authenticated_staff([])
       refute conn.halted
       refute conn.status
     end

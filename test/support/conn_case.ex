@@ -49,6 +49,13 @@ defmodule SnekinfoWeb.ConnCase do
     user = Snekinfo.UsersFixtures.user_fixture()
     %{conn: log_in_user(conn, user), user: user}
   end
+  def log_as_user(data), do: register_and_log_in_user(data)
+
+  def register_and_log_in_staff(%{conn: conn}) do
+    user = Snekinfo.UsersFixtures.user_fixture(%{staff?: true})
+    %{conn: log_in_user(conn, user), user: user}
+  end
+  def log_as_staff(data), do: register_and_log_in_staff(data)
 
   @doc """
   Logs the given `user` into the `conn`.

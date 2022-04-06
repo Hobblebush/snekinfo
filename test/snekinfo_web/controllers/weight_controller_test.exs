@@ -9,6 +9,8 @@ defmodule SnekinfoWeb.WeightControllerTest do
   @invalid_attrs %{timestamp: "goat", weight: -7.5}
 
   describe "index" do
+    setup [:log_as_staff]
+
     test "lists all weights", %{conn: conn} do
       conn = get(conn, Routes.weight_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Weights"
@@ -16,6 +18,8 @@ defmodule SnekinfoWeb.WeightControllerTest do
   end
 
   describe "new weight" do
+    setup [:log_as_staff]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.weight_path(conn, :new))
       assert html_response(conn, 200) =~ "New Weight"
@@ -23,6 +27,8 @@ defmodule SnekinfoWeb.WeightControllerTest do
   end
 
   describe "create weight" do
+    setup [:log_as_staff]
+
     test "redirects to show when data is valid", %{conn: conn} do
       snake = SnakesFixtures.snake_fixture()
       weight_attrs = Map.put(@create_attrs, :snake_id, snake.id)
@@ -43,7 +49,7 @@ defmodule SnekinfoWeb.WeightControllerTest do
   end
 
   describe "edit weight" do
-    setup [:create_weight]
+    setup [:create_weight, :log_as_staff]
 
     test "renders form for editing chosen weight", %{conn: conn, weight: weight} do
       conn = get(conn, Routes.weight_path(conn, :edit, weight))
@@ -52,7 +58,7 @@ defmodule SnekinfoWeb.WeightControllerTest do
   end
 
   describe "update weight" do
-    setup [:create_weight]
+    setup [:create_weight, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, weight: weight} do
       conn = put(conn, Routes.weight_path(conn, :update, weight), weight: @update_attrs)
@@ -69,7 +75,7 @@ defmodule SnekinfoWeb.WeightControllerTest do
   end
 
   describe "delete weight" do
-    setup [:create_weight]
+    setup [:create_weight, :log_as_staff]
 
     test "deletes chosen weight", %{conn: conn, weight: weight} do
       conn = delete(conn, Routes.weight_path(conn, :delete, weight))

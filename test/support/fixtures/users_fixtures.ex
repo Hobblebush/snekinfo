@@ -5,12 +5,20 @@ defmodule Snekinfo.UsersFixtures do
   """
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
+  def unique_staff_email, do: "user#{System.unique_integer()}@reptigene.com"
   def valid_user_password, do: "hello world!"
 
   def valid_user_attributes(attrs \\ %{}) do
+    email = if attrs[:staff?] do
+      unique_staff_email()
+    else
+      unique_user_email()
+    end
+
     Enum.into(attrs, %{
-      email: unique_user_email(),
-      password: valid_user_password()
+      email: email,
+      password: valid_user_password(),
+      staff?: false,
     })
   end
 

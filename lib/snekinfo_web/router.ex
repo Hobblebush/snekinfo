@@ -21,11 +21,20 @@ defmodule SnekinfoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/photos/:id/raw", PhotoController, :raw
+    get "/photos/:id/thumb", PhotoController, :thumb
+  end
+
+  # These should be any user.
+  scope "/", SnekinfoWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
     resources "/snakes", SnakeController do
       resources "/feeds", FeedController, only: [:index, :new]
       resources "/weights", WeightController, only: [:index, :new]
       resources "/sheds", ShedController, only: [:index, :new]
       resources "/photos", PhotoController, only: [:index, :new, :create]
+      resources "/comments", CommentController, only: [:new, :create]
     end
     resources "/litters", LitterController do
       resources "/snakes", SnakeController, only: [:new]
@@ -38,8 +47,13 @@ defmodule SnekinfoWeb.Router do
       resources "/snakes", SnakeController, only: [:index, :new]
     end
     resources "/photos", PhotoController, except: [:index, :new, :create]
-    get "/photos/:id/raw", PhotoController, :raw
-    get "/photos/:id/thumb", PhotoController, :thumb
+  end
+
+  # These should be staff only.
+  scope "/staff", SnekinfoWeb.Staff, as: :staff do
+    pipe_through [:browser, :require_authenticated_staff]
+
+    resources "/comments", CommentController, except: [:new, :create]
   end
 
   # Other scopes may use custom stacks.
