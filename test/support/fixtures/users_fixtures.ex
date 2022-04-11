@@ -4,6 +4,7 @@ defmodule Snekinfo.UsersFixtures do
   entities via the `Snekinfo.Users` context.
   """
 
+  def unique_user_name, do: "User#{System.unique_integer()}"
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def unique_staff_email, do: "user#{System.unique_integer()}@reptigene.com"
   def valid_user_password, do: "hello world!"
@@ -17,6 +18,7 @@ defmodule Snekinfo.UsersFixtures do
 
     Enum.into(attrs, %{
       email: email,
+      name: unique_user_name(),
       password: valid_user_password(),
       staff?: false,
     })

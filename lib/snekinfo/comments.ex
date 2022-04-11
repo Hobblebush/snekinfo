@@ -22,6 +22,14 @@ defmodule Snekinfo.Comments do
     |> Repo.preload([:snake, :user])
   end
 
+  def list_recent_comments_for_snake(snake, user, count) do
+    Repo.all from cc in Comment,
+      where: cc.snake_id == ^snake.id,
+      where: cc.approved? or cc.user_id == ^user.id,
+      limit: ^count,
+      preload: [:user]
+  end
+
   @doc """
   Gets a single comment.
 
@@ -36,7 +44,10 @@ defmodule Snekinfo.Comments do
       ** (Ecto.NoResultsError)
 
   """
-  def get_comment!(id), do: Repo.get!(Comment, id)
+  def get_comment!(id) do
+    Repo.get!(Comment, id)
+    |> Repo.preload([:user, :snake])
+  end
 
   @doc """
   Creates a comment.
@@ -71,6 +82,12 @@ defmodule Snekinfo.Comments do
   def update_comment(%Comment{} = comment, attrs) do
     comment
     |> Comment.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def staff_update_comment(%Comment{} = comment, attrs) do
+    comment
+    |> Comment.staff_changeset(attrs)
     |> Repo.update()
   end
 

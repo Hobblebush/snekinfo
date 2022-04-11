@@ -24,7 +24,6 @@
 
           <div class="collapse navbar-collapse" id="navtoggle">
             <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-              <%= nav_item(@conn, "Home", "/") %>
               <%= nav_item(@conn, "Snakes", Routes.snake_path(@conn, :index)) %>
               <%= nav_item(@conn, "Litters", Routes.litter_path(@conn, :index)) %>
               <%= nav_item(@conn, "Species", Routes.species_path(@conn, :index)) %>
@@ -35,6 +34,14 @@
         </div>
       </nav>
     </header>
+
     <%= @inner_content %>
+
+    <footer class="text-center" style="margin-top: 4em; margin-bottom: 4em">
+      <p>
+        Content copyright &copy; 2021-2022 Kristina Nickerson.
+        All rights reserved.
+      </p>
+    </footer>
   </body>
 </html>

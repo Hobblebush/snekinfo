@@ -18,3 +18,12 @@ Prep (on server):
 
 See [the deployment guide](notes/deploy-guide.md) for how to deploy changes.
 
+## Public Views
+
+Don't show:
+
+ - Dead snakes
+ - Cost
+ - Notes
+ - Hide weight for feeds
+

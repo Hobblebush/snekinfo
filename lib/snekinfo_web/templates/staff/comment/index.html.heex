@@ -1,6 +1,6 @@
 <h1>Listing Comments</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>User</th>
@@ -17,7 +17,7 @@
         <td><%= comment.user.name %></td>
         <td><%= snake_link(@conn, comment.snake) %></td>
         <td><%= comment.approved? %></td>
-        <td><%= comment.body %></td>
+        <td><%= truncate(comment.body, 60) %></td>
 
         <td>
           <span><%= link "Show", to: Routes.staff_comment_path(@conn, :show, comment) %></span>

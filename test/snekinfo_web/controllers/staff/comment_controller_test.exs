@@ -3,8 +3,8 @@ defmodule SnekinfoWeb.Staff.CommentControllerTest do
 
   import Snekinfo.CommentsFixtures
 
-  @update_attrs %{approved?: false, body: "some updated body"}
-  @invalid_attrs %{approved?: nil, body: nil}
+  @update_attrs %{ approved?: true }
+  @invalid_attrs %{}
 
   describe "index" do
     setup [:log_as_staff]
@@ -28,15 +28,17 @@ defmodule SnekinfoWeb.Staff.CommentControllerTest do
     setup [:create_comment, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, comment: comment} do
-      conn = put(conn, Routes.staff_comment_path(conn, :update, comment), comment: @update_attrs)
+      conn = put(conn, Routes.staff_comment_path(conn, :update, comment),
+        comment: @update_attrs)
       assert redirected_to(conn) == Routes.staff_comment_path(conn, :show, comment)
 
       conn = get(conn, Routes.staff_comment_path(conn, :show, comment))
-      assert html_response(conn, 200) =~ "some updated body"
+      assert html_response(conn, 200) =~ ~r/Approved\?:[^p]+true/
     end
 
     test "renders errors when data is invalid", %{conn: conn, comment: comment} do
-      conn = put(conn, Routes.staff_comment_path(conn, :update, comment), comment: @invalid_attrs)
+      conn = put(conn, Routes.staff_comment_path(conn, :update, comment),
+        comment: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Comment"
     end
   end

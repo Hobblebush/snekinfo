@@ -1,6 +1,32 @@
 <h1>Edit Comment</h1>
 
-<%= render("form.html",
-  Map.put(assigns, :action, Routes.staff_comment_path(@conn, :update, @comment))) %>
+<div class="mb-3">
+  <p>
+    <%= link "View Comment", to: Routes.staff_comment_path(@conn, :show, @comment) %> |
+    Snake: <%= snake_link(@conn, @comment.snake) %>
+  </p>
+</div>
 
-<span><%= link "Back", to: Routes.staff_comment_path(@conn, :show, @comment) %></span>
+<.form let={f} for={@changeset} action={Routes.staff_comment_path(@conn, :update, @comment)}>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="mb-3 form-check">
+    <%= label f, :approved? %>
+    <%= checkbox f, :approved?, class: "form-check-input"  %>
+    <%= error_tag f, :approved? %>
+  </div>
+
+  <div class="mb-3">
+    <%= label f, :body %>
+    <%= textarea f, :body, disabled: true, class: "form-control" %>
+    <%= error_tag f, :body %>
+  </div>
+
+  <div class="mb-3">
+    <%= submit "Save", class: "btn btn-primary" %>
+  </div>
+</.form>

@@ -3,8 +3,8 @@ defmodule SnekinfoWeb.CommentControllerTest do
 
   import Snekinfo.SnakesFixtures
 
-  @create_attrs %{approved?: true, body: "some body"}
-  @invalid_attrs %{approved?: nil, body: nil}
+  @create_attrs %{ body: "some stuff" }
+  @invalid_attrs %{}
 
   describe "new comment" do
     setup [:log_as_user]
@@ -12,7 +12,7 @@ defmodule SnekinfoWeb.CommentControllerTest do
     test "renders form", %{conn: conn} do
       snake = snake_fixture()
       conn = get(conn, Routes.snake_comment_path(conn, :new, snake))
-      assert html_response(conn, 200) =~ "New Comment"
+      assert html_response(conn, 200) =~ "New Snake Comment"
     end
   end
 
@@ -34,9 +34,10 @@ defmodule SnekinfoWeb.CommentControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       snake = snake_fixture()
+
       conn = post(conn, Routes.snake_comment_path(conn, :create, snake),
         comment: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Comment"
+      assert html_response(conn, 200) =~ "New Snake Comment"
     end
   end
 end

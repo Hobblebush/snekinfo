@@ -19,7 +19,8 @@ defmodule Snekinfo.CommentsTest do
 
     test "get_comment!/1 returns the comment with given id" do
       comment = comment_fixture()
-      assert Comments.get_comment!(comment.id) == comment
+      cc1 = Comments.get_comment!(comment.id)
+      assert_near_eq(cc1, comment)
     end
 
     test "create_comment/1 with valid data creates a comment" do
@@ -34,7 +35,7 @@ defmodule Snekinfo.CommentsTest do
       }
 
       assert {:ok, %Comment{} = comment} = Comments.create_comment(valid_attrs)
-      assert comment.approved? == false
+      assert !comment.approved?
       assert comment.body == "some body"
     end
 
@@ -54,7 +55,7 @@ defmodule Snekinfo.CommentsTest do
     test "update_comment/2 with invalid data returns error changeset" do
       comment = comment_fixture()
       assert {:error, %Ecto.Changeset{}} = Comments.update_comment(comment, @invalid_attrs)
-      assert comment == Comments.get_comment!(comment.id)
+      assert_near_eq(comment, Comments.get_comment!(comment.id))
     end
 
     test "delete_comment/1 deletes the comment" do

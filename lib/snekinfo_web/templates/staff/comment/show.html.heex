@@ -1,18 +1,23 @@
 <h1>Show Comment</h1>
 
-<ul>
+<p>
+  <%= link "Edit Comment", to: Routes.staff_comment_path(@conn, :edit, @comment) %> |
+  Snake: <%= snake_link(@conn, @comment.snake) %> |
+  <%= link "List Comments", to: Routes.staff_comment_path(@conn, :index) %>
+</p>
 
-  <li>
-    <strong>Approved?:</strong>
-    <%= @comment.approved? %>
-  </li>
+<div class="card mb-3">
+  <div class="card-body">
+    <p><b>
+      <%= @comment.user.name %> on
+      <%= NaiveDateTime.to_date(@comment.inserted_at) %>
+    </b></p>
+    <p><%= @comment.body %></p>
+  </div>
+</div>
 
-  <li>
-    <strong>Body:</strong>
-    <%= @comment.body %>
-  </li>
+<p>
+  <strong>Approved?:</strong>
+  <%= @comment.approved? %>
+</p>
 
-</ul>
-
-<span><%= link "Edit", to: Routes.staff_comment_path(@conn, :edit, @comment) %></span> |
-<span><%= link "Back", to: Routes.staff_comment_path(@conn, :index) %></span>

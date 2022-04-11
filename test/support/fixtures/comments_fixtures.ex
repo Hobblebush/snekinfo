@@ -4,6 +4,8 @@ defmodule Snekinfo.CommentsFixtures do
   entities via the `Snekinfo.Comments` context.
   """
 
+  alias Snekinfo.Comments.Comment
+
   import Snekinfo.UsersFixtures
   import Snekinfo.SnakesFixtures
 
@@ -24,6 +26,6 @@ defmodule Snekinfo.CommentsFixtures do
       })
       |> Snekinfo.Comments.create_comment()
 
-    comment
+    %Comment{ comment | approved?: false }
   end
 end

@@ -8,6 +8,12 @@
   <% end %>
 
   <div class="mb-3">
+    <%= label f, :name %>
+    <%= text_input f, :name, required: true, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="mb-3">
     <%= label f, :email %>
     <%= email_input f, :email, required: true, class: "form-control" %>
     <%= error_tag f, :email %>

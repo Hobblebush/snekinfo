@@ -23,7 +23,7 @@ defmodule SnekinfoWeb.Staff.CommentController do
   def update(conn, %{"id" => id, "comment" => comment_params}) do
     comment = Comments.get_comment!(id)
 
-    case Comments.update_comment(comment, comment_params) do
+    case Comments.staff_update_comment(comment, comment_params) do
       {:ok, comment} ->
         conn
         |> put_flash(:info, "Comment updated successfully.")
