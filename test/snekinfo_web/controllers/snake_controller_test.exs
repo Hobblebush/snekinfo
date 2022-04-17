@@ -8,6 +8,8 @@ defmodule SnekinfoWeb.SnakeControllerTest do
   @invalid_attrs %{born: nil, name: "", sex: "grape"}
 
   describe "index" do
+    setup [:log_as_staff]
+
     test "lists all snakes", %{conn: conn} do
       conn = get(conn, Routes.snake_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Snakes"
@@ -15,6 +17,8 @@ defmodule SnekinfoWeb.SnakeControllerTest do
   end
 
   describe "new snake" do
+    setup [:log_as_staff]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.snake_path(conn, :new))
       assert html_response(conn, 200) =~ "New Snake"
@@ -22,6 +26,8 @@ defmodule SnekinfoWeb.SnakeControllerTest do
   end
 
   describe "create snake" do
+    setup [:log_as_staff]
+
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.snake_path(conn, :create), snake: @create_attrs)
 
@@ -39,7 +45,7 @@ defmodule SnekinfoWeb.SnakeControllerTest do
   end
 
   describe "edit snake" do
-    setup [:create_snake]
+    setup [:create_snake, :log_as_staff]
 
     test "renders form for editing chosen snake", %{conn: conn, snake: snake} do
       conn = get(conn, Routes.snake_path(conn, :edit, snake))
@@ -48,7 +54,7 @@ defmodule SnekinfoWeb.SnakeControllerTest do
   end
 
   describe "update snake" do
-    setup [:create_snake]
+    setup [:create_snake, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, snake: snake} do
       conn = put(conn, Routes.snake_path(conn, :update, snake), snake: @update_attrs)
@@ -65,7 +71,7 @@ defmodule SnekinfoWeb.SnakeControllerTest do
   end
 
   describe "delete snake" do
-    setup [:create_snake]
+    setup [:create_snake, :log_as_staff]
 
     test "deletes chosen snake", %{conn: conn, snake: snake} do
       conn = delete(conn, Routes.snake_path(conn, :delete, snake))

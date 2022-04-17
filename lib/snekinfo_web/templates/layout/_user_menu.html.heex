@@ -1,0 +1,13 @@
+<ul class="navbar navbar-nav">
+<%= if @current_user do %>
+  <li class="nav-item navbar-text">
+    <%= @current_user.email %>
+  </li>
+  <%= nav_item(@conn, "Settings", Routes.user_settings_path(@conn, :edit)) %>
+  <%= nav_item(@conn, "Log out",
+    Routes.user_session_path(@conn, :delete), method: :delete) %>
+<% else %>
+  <%= nav_item(@conn, "Register", Routes.user_registration_path(@conn, :new)) %>
+  <%= nav_item(@conn, "Log in", Routes.user_session_path(@conn, :new)) %>
+<% end %>
+</ul>

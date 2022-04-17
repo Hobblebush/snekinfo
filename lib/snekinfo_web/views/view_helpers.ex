@@ -7,6 +7,69 @@ defmodule SnekinfoWeb.ViewHelpers do
 
   import Phoenix.View
 
+  def staff_logged_in?(conn) do
+    user = conn.assigns[:current_user]
+    user && user.staff?
+  end
+
+  def user_logged_in?(conn) do
+    !is_nil(conn.assigns[:current_user])
+  end
+
+  defp join_to_len([], _), do: ""
+  defp join_to_len([xx|xs], len) do
+    nn = String.length(xx)
+    if nn <= len do
+      xx <> join_to_len(xs, len - nn)
+    else
+      ""
+    end
+  end
+
+  def truncate(text, len) do
+    words = String.split(text, ~r/\b/)
+    text1 = join_to_len(words, len - 3)
+    if String.length(text1) < String.length(text) do
+      text1 <> "..."
+    else
+      text1
+    end
+  end
+  def truncate(text), do: truncate(text, 20)
+
+  def norm_path(xs) when is_list(xs) do
+    Enum.filter(xs, &(&1 =~ ~r/\w/))
+  end
+  def norm_path(text) do
+    norm_path(Path.split(text))
+  end
+
+  def same_path?(aa, bb) do
+    norm_path(aa) == norm_path(bb)
+  end
+
+  def nav_link(conn, text, path, opts) do
+    opts = Keyword.put(opts, :to, path)
+    if same_path?(conn.request_path, path) do
+      opts = Keyword.merge opts, [
+        class: "nav-link active",
+        "aria-current": "page",
+      ]
+      link(text, opts)
+    else
+      opts = Keyword.merge opts, [class: "nav-link"]
+      link(text, opts)
+    end
+  end
+
+  def nav_item(conn, text, path, opts) do
+    link = nav_link(conn, text, path, opts)
+    content_tag("li", link, class: "nav-item")
+  end
+  def nav_item(conn, text, path) do
+    nav_item(conn, text, path, [])
+  end
+
   def snake_link(_conn, nil), do: "∅"
   def snake_link(conn, snake) do
     if Ecto.assoc_loaded?(snake) do

@@ -29,6 +29,10 @@
   margin-left: 1ex;
 }
 
+.nav-item {
+  white-space: nowrap;
+}
+
 /*** Default Phoenix Styles ***/
 
 /* Alerts and form errors used by phx.new */

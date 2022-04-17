@@ -26,6 +26,9 @@ config :snekinfo, SnekinfoWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :snekinfo, Snekinfo.Mailer, adapter: Swoosh.Adapters.Local
 
+config :snekinfo, :staff_domains,
+  pat: ~r/\@(reptigene\.com|ferrus\.net)$/
+
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 

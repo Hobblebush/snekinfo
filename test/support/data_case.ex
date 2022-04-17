@@ -51,6 +51,7 @@ defmodule Snekinfo.DataCase do
 
   def assert_near_eq(xs, ys) when is_list(xs) do
     assert is_list(ys)
+    assert length(xs) == length(ys)
 
     Enum.each Enum.zip(xs, ys), fn {aa, bb} ->
       assert_near_eq(aa, bb)

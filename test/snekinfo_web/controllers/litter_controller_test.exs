@@ -9,6 +9,8 @@ defmodule SnekinfoWeb.LitterControllerTest do
   @invalid_attrs %{born: "goat"}
 
   describe "index" do
+    setup [:log_as_staff]
+
     test "lists all litters", %{conn: conn} do
       conn = get(conn, Routes.litter_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Litters"
@@ -16,6 +18,8 @@ defmodule SnekinfoWeb.LitterControllerTest do
   end
 
   describe "new litter" do
+    setup [:log_as_staff]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.litter_path(conn, :new))
       assert html_response(conn, 200) =~ "New Litter"
@@ -23,6 +27,8 @@ defmodule SnekinfoWeb.LitterControllerTest do
   end
 
   describe "create litter" do
+    setup [:log_as_staff]
+
     test "redirects to show when data is valid", %{conn: conn} do
       mother = SnakesFixtures.snake_fixture()
 
@@ -43,7 +49,7 @@ defmodule SnekinfoWeb.LitterControllerTest do
   end
 
   describe "edit litter" do
-    setup [:create_litter]
+    setup [:create_litter, :log_as_staff]
 
     test "renders form for editing chosen litter", %{conn: conn, litter: litter} do
       conn = get(conn, Routes.litter_path(conn, :edit, litter))
@@ -52,7 +58,7 @@ defmodule SnekinfoWeb.LitterControllerTest do
   end
 
   describe "update litter" do
-    setup [:create_litter]
+    setup [:create_litter, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, litter: litter} do
       conn = put(conn, Routes.litter_path(conn, :update, litter), litter: @update_attrs)
@@ -69,7 +75,7 @@ defmodule SnekinfoWeb.LitterControllerTest do
   end
 
   describe "delete litter" do
-    setup [:create_litter]
+    setup [:create_litter, :log_as_staff]
 
     test "deletes chosen litter", %{conn: conn, litter: litter} do
       conn = delete(conn, Routes.litter_path(conn, :delete, litter))
@@ -82,6 +88,8 @@ defmodule SnekinfoWeb.LitterControllerTest do
   end
 
   describe "show litter" do
+    setup [:log_as_staff]
+
     test "when litter has snake", %{conn: conn} do
       litter = litter_fixture()
       _snake = SnakesFixtures.snake_fixture(name: "Billy", litter_id: litter.id)

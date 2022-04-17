@@ -9,6 +9,8 @@ defmodule SnekinfoWeb.PhotoControllerTest do
   @invalid_attrs %{caption: nil, filename: nil, order: nil}
 
   describe "index" do
+    setup [:log_as_staff]
+
     test "lists all photos", %{conn: conn} do
       snake = snake_fixture()
 
@@ -18,6 +20,8 @@ defmodule SnekinfoWeb.PhotoControllerTest do
   end
 
   describe "new photo" do
+    setup [:log_as_staff]
+
     test "renders form", %{conn: conn} do
       snake = snake_fixture()
 
@@ -27,6 +31,8 @@ defmodule SnekinfoWeb.PhotoControllerTest do
   end
 
   describe "create photo" do
+    setup [:log_as_staff]
+
     test "redirects to show when data is valid", %{conn: conn} do
       snake = snake_fixture()
 
@@ -51,7 +57,7 @@ defmodule SnekinfoWeb.PhotoControllerTest do
   end
 
   describe "edit photo" do
-    setup [:create_photo]
+    setup [:create_photo, :log_as_staff]
 
     test "renders form for editing chosen photo", %{conn: conn, photo: photo} do
       conn = get(conn, Routes.photo_path(conn, :edit, photo))
@@ -60,7 +66,7 @@ defmodule SnekinfoWeb.PhotoControllerTest do
   end
 
   describe "update photo" do
-    setup [:create_photo]
+    setup [:create_photo, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, photo: photo} do
       conn = put(conn, Routes.photo_path(conn, :update, photo), photo: @update_attrs)
@@ -77,7 +83,7 @@ defmodule SnekinfoWeb.PhotoControllerTest do
   end
 
   describe "delete photo" do
-    setup [:create_photo]
+    setup [:create_photo, :log_as_staff]
 
     test "deletes chosen photo", %{conn: conn, photo: photo} do
       conn = delete(conn, Routes.photo_path(conn, :delete, photo))

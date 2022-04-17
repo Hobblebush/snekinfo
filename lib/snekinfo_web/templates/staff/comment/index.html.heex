@@ -1,0 +1,30 @@
+<h1>Listing Comments</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Snake</th>
+      <th>Approved?</th>
+      <th>Body</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for comment <- @comments do %>
+      <tr>
+        <td><%= comment.user.name %></td>
+        <td><%= snake_link(@conn, comment.snake) %></td>
+        <td><%= comment.approved? %></td>
+        <td><%= truncate(comment.body, 60) %></td>
+
+        <td>
+          <span><%= link "Show", to: Routes.staff_comment_path(@conn, :show, comment) %></span>
+          <span><%= link "Edit", to: Routes.staff_comment_path(@conn, :edit, comment) %></span>
+          <span><%= link "Delete", to: Routes.staff_comment_path(@conn, :delete, comment), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

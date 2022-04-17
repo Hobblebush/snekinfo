@@ -8,6 +8,8 @@ defmodule SnekinfoWeb.SpeciesControllerTest do
   @invalid_attrs %{name: nil}
 
   describe "index" do
+    setup [:log_as_staff]
+
     test "lists all species", %{conn: conn} do
       conn = get(conn, Routes.species_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Species"
@@ -15,6 +17,8 @@ defmodule SnekinfoWeb.SpeciesControllerTest do
   end
 
   describe "new species" do
+    setup [:log_as_staff]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.species_path(conn, :new))
       assert html_response(conn, 200) =~ "New Species"
@@ -22,6 +26,8 @@ defmodule SnekinfoWeb.SpeciesControllerTest do
   end
 
   describe "create species" do
+    setup [:log_as_staff]
+
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.species_path(conn, :create), species: @create_attrs)
 
@@ -39,7 +45,7 @@ defmodule SnekinfoWeb.SpeciesControllerTest do
   end
 
   describe "edit species" do
-    setup [:create_species]
+    setup [:create_species, :log_as_staff]
 
     test "renders form for editing chosen species", %{conn: conn, species: species} do
       conn = get(conn, Routes.species_path(conn, :edit, species))
@@ -48,7 +54,7 @@ defmodule SnekinfoWeb.SpeciesControllerTest do
   end
 
   describe "update species" do
-    setup [:create_species]
+    setup [:create_species, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, species: species} do
       conn = put(conn, Routes.species_path(conn, :update, species), species: @update_attrs)
@@ -65,7 +71,7 @@ defmodule SnekinfoWeb.SpeciesControllerTest do
   end
 
   describe "delete species" do
-    setup [:create_species]
+    setup [:create_species, :log_as_staff]
 
     test "deletes chosen species", %{conn: conn, species: species} do
       conn = delete(conn, Routes.species_path(conn, :delete, species))

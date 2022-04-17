@@ -8,6 +8,8 @@ defmodule SnekinfoWeb.ShedControllerTest do
   @invalid_attrs %{date: nil}
 
   describe "index" do
+    setup [:log_as_staff]
+
     test "lists all sheds", %{conn: conn} do
       conn = get(conn, Routes.shed_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Sheds"
@@ -15,6 +17,8 @@ defmodule SnekinfoWeb.ShedControllerTest do
   end
 
   describe "new shed" do
+    setup [:log_as_staff]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.shed_path(conn, :new))
       assert html_response(conn, 200) =~ "New Shed"
@@ -22,6 +26,8 @@ defmodule SnekinfoWeb.ShedControllerTest do
   end
 
   describe "create shed" do
+    setup [:log_as_staff]
+
     test "redirects to show when data is valid", %{conn: conn} do
       snake = snake_fixture()
       create_attrs = %{snake_id: snake.id, date: ~D[2022-02-27]}
@@ -42,7 +48,7 @@ defmodule SnekinfoWeb.ShedControllerTest do
   end
 
   describe "edit shed" do
-    setup [:create_shed]
+    setup [:create_shed, :log_as_staff]
 
     test "renders form for editing chosen shed", %{conn: conn, shed: shed} do
       conn = get(conn, Routes.shed_path(conn, :edit, shed))
@@ -51,7 +57,7 @@ defmodule SnekinfoWeb.ShedControllerTest do
   end
 
   describe "update shed" do
-    setup [:create_shed]
+    setup [:create_shed, :log_as_staff]
 
     test "redirects when data is valid", %{conn: conn, shed: shed} do
       conn = put(conn, Routes.shed_path(conn, :update, shed), shed: @update_attrs)
@@ -68,7 +74,7 @@ defmodule SnekinfoWeb.ShedControllerTest do
   end
 
   describe "delete shed" do
-    setup [:create_shed]
+    setup [:create_shed, :log_as_staff]
 
     test "deletes chosen shed", %{conn: conn, shed: shed} do
       conn = delete(conn, Routes.shed_path(conn, :delete, shed))
