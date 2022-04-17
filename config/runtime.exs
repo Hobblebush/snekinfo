@@ -66,6 +66,10 @@ if config_env() == :prod do
   #       adapter: Swoosh.Adapters.Mailgun,
   #       api_key: System.get_env("MAILGUN_API_KEY"),
   #       domain: System.get_env("MAILGUN_DOMAIN")
+  config :snekinfo, Snekinfo.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: "localhost",
+    port: 25
   #
   # For this example you need include a HTTP client required by Swoosh API client.
   # Swoosh supports Hackney and Finch out of the box:
