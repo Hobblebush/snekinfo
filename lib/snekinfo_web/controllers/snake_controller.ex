@@ -113,4 +113,22 @@ defmodule SnekinfoWeb.SnakeController do
     |> Enum.filter(&(&1 != nil))
     Map.put(params, "traits", xs)
   end
+
+  def clone(conn, %{"id" => id}) do
+    snake = Snakes.get_snake!(id)
+    attrs = Map.drop(snake, [:__struct__])
+    |> Map.put(:name, "#{snake.name} copy")
+
+    case Snakes.create_snake(attrs) do
+      {:ok, snake1} ->
+        conn
+        |> put_flash(:info, "Here is your new clone")
+        |> redirect(to: Routes.snake_path(conn, :show, snake1))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_flash(:error, "Clone failed")
+        |> redirect(to: Routes.snake_path(conn, :show, snake))
+    end
+  end
 end

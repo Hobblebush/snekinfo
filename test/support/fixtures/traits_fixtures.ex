@@ -10,11 +10,13 @@ defmodule Snekinfo.TraitsFixtures do
   def trait_fixture(attrs \\ %{}) do
     sp = Snekinfo.TaxaFixtures.species_fixture()
 
+    nn = :erlang.unique_integer()
+
     {:ok, trait} =
       attrs
       |> Enum.into(%{
         inheritance: "poly",
-        name: "wings",
+        name: "wings#{nn}",
         species_id: sp.id,
       })
       |> Snekinfo.Traits.create_trait()
