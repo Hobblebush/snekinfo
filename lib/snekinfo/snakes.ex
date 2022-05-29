@@ -82,6 +82,11 @@ defmodule Snekinfo.Snakes do
     end
   end
 
+  def get_snake_by_name!(name) do
+    Repo.get_by!(Snake, name: name)
+    |> Repo.preload([:traits, :species])
+  end
+
   def list_snake_litters(%Snake{} = snake) do
     list_snake_litters(snake.id)
   end

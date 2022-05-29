@@ -36,6 +36,7 @@ defmodule SnekinfoWeb.Router do
       resources "/photos", PhotoController, only: [:index, :new, :create]
       resources "/comments", CommentController, only: [:new, :create]
     end
+    post "/snakes/:id/clone", SnakeController, :clone
     resources "/litters", LitterController do
       resources "/snakes", SnakeController, only: [:new]
     end

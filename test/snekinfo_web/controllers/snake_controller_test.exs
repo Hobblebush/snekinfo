@@ -2,6 +2,7 @@ defmodule SnekinfoWeb.SnakeControllerTest do
   use SnekinfoWeb.ConnCase
 
   import Snekinfo.SnakesFixtures
+  alias Snekinfo.Snakes
 
   @create_attrs %{born: ~D[2021-10-20], name: "Sally", sex: "F"}
   @update_attrs %{born: ~D[2021-10-21], name: "Steve", sex: "M"}
@@ -80,6 +81,23 @@ defmodule SnekinfoWeb.SnakeControllerTest do
       assert_error_sent 404, fn ->
         get(conn, Routes.snake_path(conn, :show, snake))
       end
+    end
+  end
+
+  describe "clone snake" do
+    setup [:create_snake, :log_as_staff]
+
+    test "clones chosen snake", %{conn: conn, snake: snake} do
+      conn = post(conn, Routes.snake_path(conn, :clone, snake))
+      assert html_response(conn, 302)
+
+      path = redirected_to(conn)
+      conn = get(conn, path)
+      assert html_response(conn, 200) =~ "#{snake.name} copy"
+
+      snake1 = Snakes.get_snake_by_name!("#{snake.name} copy")
+      assert snake1.species_id == snake.species_id
+      assert snake1.traits == snake.traits
     end
   end
 
