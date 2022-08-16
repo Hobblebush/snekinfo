@@ -18,4 +18,16 @@ defmodule SnekinfoWeb.TraitView do
       path: Routes.trait_path(SnekinfoWeb.Endpoint, :show, trait),
     }
   end
+
+  def sort_traits(xs) do
+    Enum.sort_by(xs, &trait_order/1)
+  end
+
+  def trait_order(trait) do
+    cond do
+      trait.name =~ ~r/^het/i -> {5, trait.name}
+      trait.name =~ ~r/^ph/i  -> {7, trait.name}
+      true -> {3, trait.name}
+    end
+  end
 end
