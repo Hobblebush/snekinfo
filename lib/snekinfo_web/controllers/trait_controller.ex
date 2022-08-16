@@ -36,7 +36,14 @@ defmodule SnekinfoWeb.TraitController do
     trait = Traits.get_trait!(id)
     |> Traits.preload_trait_snakes()
 
-    render(conn, "show.html", trait: trait)
+    snakes = trait.snakes
+    snakes_json = Jason.encode!(
+      SnekinfoWeb.SnakeView.to_data(snakes),
+      pretty: true
+    )
+
+    render(conn, "show.html", trait: trait, snakes: snakes,
+      snakes_json: snakes_json)
   end
 
   def edit(conn, %{"id" => id}) do

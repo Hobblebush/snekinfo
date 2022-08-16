@@ -20,4 +20,12 @@
 
 <h2>Snakes with <%= @trait.name %></h2>
 
-<%= render SnekinfoWeb.SnakeView, "table.html", Map.put(assigns, :snakes, @trait.snakes) %>
+
+<div id="snakes-table-root">
+  <p>Loading dynamic snakes table...</p>
+  <%= render(SnekinfoWeb.SnakeView, "table.html", assigns) %>
+</div>
+
+<script>
+  window.snakes = (<%= raw @snakes_json %>);
+</script>
