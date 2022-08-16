@@ -1,12 +1,15 @@
 defmodule SnekinfoWeb.TraitController do
   use SnekinfoWeb, :controller
 
+  alias SnekinfoWeb.TraitView
+
   alias Snekinfo.Traits
   alias Snekinfo.Traits.Trait
   alias Snekinfo.Taxa
 
   def index(conn, _params) do
     traits = Traits.list_traits()
+    |> TraitView.sort_traits()
     render(conn, "index.html", traits: traits)
   end
 
